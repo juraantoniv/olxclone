@@ -1,0 +1,73 @@
+.container{
+    width: 80%;
+    min-height: 800px;
+    padding: 30px;
+
+}
+
+.image{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height:600px;
+    gap: 20px;
+}
+
+.item2{
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    padding: 20px;
+    margin: 20px 0 20px 0;
+}
+
+.contact{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+}
+
+.profile{
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    padding: 30px;
+    gap: 20px;
+}
+
+.priceName{
+    width: 100%;
+    padding: 10px;
+}
+
+
+
+.numberMessage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 20px;
+    padding: 5px;
+    width: 100%;
+}
+
+
+.map{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 350px;
+}
+
+.underDivider{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
+}

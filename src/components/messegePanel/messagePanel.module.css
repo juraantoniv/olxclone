@@ -1,0 +1,21 @@
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+    width: 55%;
+    padding: 10px;
+    overflow: hidden;
+    overflow-y: scroll;
+    height: 400px;
+
+}
+
+.leftBox{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    width: 20%;
+    position: sticky;
+    top: 70px;
+}

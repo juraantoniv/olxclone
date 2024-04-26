@@ -1,0 +1,20 @@
+.icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 6vh;
+    width: 60%;
+    gap: 15px;
+}
+
+.icon{
+    cursor: pointer;
+}
+
+.iconSvg{
+    cursor: pointer;
+}
+
+.icon:hover{
+    color: darkblue;
+}

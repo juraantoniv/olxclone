@@ -1,0 +1,20 @@
+.mainBox{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.leftBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+}
+
+.rightBox{
+    display: flex;
+    justify-content: start;
+    align-items: center;
+    gap: 10px;
+    width: 40%;
+}
