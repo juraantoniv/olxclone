@@ -9,15 +9,10 @@ import { EditUserModal } from "../adminComponents/editUserComponent";
 import { UniversalTableComponent } from "../universalTable/table";
 import s from "./users.module.css";
 
-const columns: GridColDef[] = [
+export const columnsGoods: GridColDef[] = [
   { field: "id", headerName: "ID", width: 120 },
   { field: "title", headerName: "Title", width: 120 },
-  // {
-  //   field: "name",
-  //   headerName: "Name",
-  //   width: 130,
-  //   renderCell: (params) => <EditUserModal text={params.value} />,
-  // },
+
   { field: "region", headerName: "Region", width: 120 },
   { field: "location", headerName: "Location", width: 120 },
   { field: "price", headerName: "Price", width: 130 },
@@ -46,7 +41,11 @@ export const GoodsDataTable = () => {
   };
   return (
     <>
-      <UniversalTableComponent columns={columns} data={users} setId={setId} />
+      <UniversalTableComponent
+        columns={columnsGoods}
+        data={users}
+        setId={setId}
+      />
     </>
   );
 };

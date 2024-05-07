@@ -15,6 +15,8 @@ import { GoodsDataTable } from "../components/goodsTable/goods";
 import { CurrentDialog } from "../components/messegePanel/dialog/dialog";
 import { MessagePanel } from "../components/messegePanel/messagePanel";
 import { SignUp } from "../components/myAccountForm/createAccountNew";
+import { MyGoodsList } from "../components/myGoodsPanel/myGoodsList";
+import { UserGoods } from "../components/userGoods/userGoods";
 import { UsersDataTable } from "../components/usersTable/users";
 import { MainLayout } from "../pages/layouts/mainLayout";
 
@@ -26,6 +28,10 @@ const privateRoutes: RouteObject[] = [
   {
     path: "category",
     element: <GoodsList />,
+  },
+  {
+    path: "myGoods",
+    element: <MyGoodsList />,
   },
   {
     path: "category/info",
@@ -44,6 +50,10 @@ const privateRoutes: RouteObject[] = [
   {
     path: "create",
     element: <SignUp />,
+  },
+  {
+    path: "category/info/userGoods/:id",
+    element: <UserGoods />,
   },
   {
     path: "messages/:id",

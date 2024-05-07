@@ -1,4 +1,5 @@
 import { DataGoods, GoodsType, ParamsType } from "../common/types/types";
+import { DataType } from "../components/adminPanel/dashboard";
 import { instance } from "./interceptors/interceptors";
 
 export const carsApiService = {
@@ -11,9 +12,12 @@ export const carsApiService = {
         offset: params?.offset,
         ORDER: params?.ORDER,
         category: params?.category,
+        region: params?.region,
       },
     }),
   getById: (id: string) => instance.get<DataGoods>(`/goods/${id}`),
+  getUserGoods: (id: string) => instance.get<DataGoods[]>(`/goods/user/${id}`),
+  getMyGoods: () => instance.get<GoodsType>(`/goods/user/my`),
   likeCar: (id: string) => instance.post<void>(`cars/like/${id}`),
   postCar: (data: any) =>
     instance.post<GoodsType>(
@@ -35,4 +39,5 @@ export const carsApiService = {
   orderCar: (id: string) => instance.post<void>(`cars/buy/${id}`),
   getFavorite: () => instance.get<GoodsType>(`goods/favorite/my`),
   addFavorite: (id: string) => instance.post<void>(`goods/favorite/${id}`),
+  getStatics: () => instance.get<DataType[]>(`goods/statics/all`),
 };

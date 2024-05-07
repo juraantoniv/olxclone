@@ -69,6 +69,11 @@ export const userService = {
   getById: (id: string | undefined) =>
     instance.get<UserInfoType>(`users/${id}`),
   getMessages: () => instance.post<Conversation[]>(`users/my_messages`),
+  helpMessage: (message: string, subject: string) =>
+    instance.post<string>(`users/user/help`, {
+      message,
+      subject,
+    }),
   updateUserData: (user: any) =>
     instance.patch("users", {
       ...user,

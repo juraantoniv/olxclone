@@ -12,7 +12,6 @@ export const Favorites = () => {
 
   useEffect(() => {
     carsApiService.getFavorite().then((data) => {
-      console.log(data);
       setGoods(data.data.data);
     });
   }, []);

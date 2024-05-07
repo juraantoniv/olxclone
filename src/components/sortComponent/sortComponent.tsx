@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 
 import { userActions, userThunks } from "../../store/slices";
 import {
+  regionSelector,
   selectCars,
   selectCount,
   setOffset,
@@ -17,17 +18,11 @@ export const SortComponent = () => {
   const direction = useSelector(sortDirection);
   const dispatch = useAppDispatch();
   const cars = useSelector(selectCars);
+  const region = useSelector(regionSelector);
   const skip = useSelector(setOffset);
 
   const sortDirectionItem = () => {
     dispatch(userActions.setSort(!direction));
-    dispatch(
-      userThunks.fetchGoods({
-        limit: String(cars?.limit),
-        offset: skip.toString(),
-        ORDER: direction ? "ASC" : "DESC",
-      }),
-    );
   };
   return (
     <div className={s.sortContainer} onClick={sortDirectionItem}>

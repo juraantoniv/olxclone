@@ -31,6 +31,7 @@ const initialState = {
   sort: true,
   lang: "eng",
   category: null,
+  region: null,
 };
 
 const slice = createSlice({
@@ -66,6 +67,9 @@ const slice = createSlice({
     },
     setGoodOwner: (state, action) => {
       state.owner = action.payload;
+    },
+    setRegion: (state, action) => {
+      state.region = action.payload;
     },
   },
   extraReducers: (builder) => {

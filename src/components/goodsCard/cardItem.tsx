@@ -39,7 +39,6 @@ export const CardItem: React.FC<cardContent> = ({ items, currencyType }) => {
   const itemPage = useSelector(selectCount);
   const skip = useSelector(setOffset);
   const navigate = useNavigate();
-  console.log(user);
 
   const likeCar = (id: string) => {
     dispatch(userThunks.likeCar(id))
@@ -69,9 +68,10 @@ export const CardItem: React.FC<cardContent> = ({ items, currencyType }) => {
       setUser(r.data);
       dispatch(userActions.setGoodOwner(r.data));
     });
+
     dispatch(userActions.setGoodId(id));
 
-    navigate("info", { replace: true, state: { ...user } });
+    navigate("info");
   };
 
   return (

@@ -1,7 +1,6 @@
 import "react-toastify/dist/ReactToastify.css";
 
 import { zodResolver } from "@hookform/resolvers/zod";
-import GoogleIcon from "@mui/icons-material/Google";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Card } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
@@ -10,7 +9,6 @@ import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import { GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
@@ -24,8 +22,8 @@ import {
   setLocalAccessToken,
   setLocalRefreshToken,
 } from "../../common/localStorage/local.storege";
-import { authService, userService } from "../../services/auth.service";
-import { userActions } from "../../store/slices";
+import { authService } from "../../services/auth.service";
+import { userActions, userThunks } from "../../store/slices";
 import { useAppDispatch } from "../../store/store";
 import s from "./loginComponent.module.css";
 
@@ -73,7 +71,7 @@ export const SignIn: React.FC<SignType> = ({ callback, closeModal }) => {
         setLocalAccessToken(r?.data?.tokens.accessToken);
         setLocalRefreshToken(r?.data?.tokens.refreshToken);
         dispatch(userActions.setCurrenUser(r.data.user));
-
+        dispatch(userThunks.fetchGoods());
         toast.info(`Welcome ${r?.data?.user.name} in our platform!`, {
           position: "top-right",
           theme: "colored",
@@ -99,6 +97,7 @@ export const SignIn: React.FC<SignType> = ({ callback, closeModal }) => {
         response.clientId,
         response.credential,
       );
+      dispatch(userThunks.fetchGoods());
       setLocalAccessToken(data?.data?.tokens.accessToken);
       setLocalRefreshToken(data?.data?.tokens.refreshToken);
       dispatch(userActions.setCurrenUser(data.data.user));
@@ -135,7 +134,7 @@ export const SignIn: React.FC<SignType> = ({ callback, closeModal }) => {
             margin="normal"
             required
             fullWidth
-            defaultValue={"juraantoniv@gmail.com"}
+            defaultValue={"12@gmail.com"}
             id="email"
             label="Email Address"
             name="email"

@@ -11,11 +11,12 @@ import { goodIdSelected, selectUser } from "../../store/store";
 
 export const AddFavorite = () => {
   const id = useSelector(goodIdSelected);
+  const user = useSelector(selectUser);
 
   const addFavoriteHandler = async () => {
     try {
-      await carsApiService.addFavorite(id);
-      toast.info("You add good to your favorite");
+      const response = await carsApiService.addFavorite(id);
+      toast.info(`${response.data}`);
     } catch (e: any) {
       console.log(e);
       toast.error(`${e.response.data.messages}`);
@@ -24,7 +25,7 @@ export const AddFavorite = () => {
 
   return (
     <Box>
-      <IconButton onClick={addFavoriteHandler}>
+      <IconButton onClick={addFavoriteHandler} disabled={!user.name}>
         <FavoriteIcon />
       </IconButton>
     </Box>

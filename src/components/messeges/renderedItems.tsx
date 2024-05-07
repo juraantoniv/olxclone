@@ -21,9 +21,8 @@ export const RenderedItems: React.FC<RenderedItemsType> = ({ data }) => {
   return (
     <Box>
       {data.map((conversation) => (
-        <MenuItem>
+        <MenuItem onClick={() => navigateTo(conversation.receiverId)}>
           <Box
-            onClick={() => navigateTo(conversation.receiverId)}
             style={{
               display: "flex",
               justifyContent: "center",

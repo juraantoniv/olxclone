@@ -1,0 +1,16 @@
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 350px;
+    padding: 10px;
+    margin-left: 40%;
+    margin-top: 5%;
+}
+
+@media screen and (max-width: 768px) {
+    .box{
+        margin: 240px 40px 40px 70px ;
+    }
+}

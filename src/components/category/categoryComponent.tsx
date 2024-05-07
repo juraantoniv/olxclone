@@ -1,11 +1,7 @@
 import { Box } from "@material-ui/core";
-import DirectionsCarIcon from "@mui/icons-material/DirectionsCar";
-import GroupIcon from "@mui/icons-material/Group";
-import HomeWorkIcon from "@mui/icons-material/HomeWork";
-import LocalDiningIcon from "@mui/icons-material/LocalDining";
-import TvIcon from "@mui/icons-material/Tv";
-import { Button, CardMedia } from "@mui/material";
+import { makeStyles } from "@mui/material";
 import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { useSelector } from "react-redux";
@@ -13,105 +9,85 @@ import { useNavigate } from "react-router-dom";
 
 import { userActions } from "../../store/slices";
 import { category, selectCars, useAppDispatch } from "../../store/store";
-import { IconSearchProperty } from "../svg/home";
+import IconComponentAll from "../svg/allGoods";
+import IconCar from "../svg/car";
+import IconElectronics from "../svg/electronics";
+import IconFashion from "../svg/fashion";
+import IconFoods from "../svg/foods";
+import IconComponentHome from "../svg/home";
+import IconHouse from "../svg/house";
+import JobComponent from "../svg/job";
 import s from "./categoryComponent.module.css";
+const styles = {
+  root: {
+    background: "linear-gradient(45deg, #2196F3 10%, #21CBF3 40%)",
+    boxShadow: "0 3px 5px 2px rgba(33, 203, 243, .3)",
+    color: "white",
+    margin: 8,
+  },
+};
 
 export const CategoryComponent = () => {
   const categoryValue = useSelector(category);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
 
-  const categoryHandler = (cat: string) => {
+  const categoryHandler = (cat: string | null) => {
     dispatch(userActions.setCategory(cat));
     navigate("category");
   };
 
   return (
-    <Box className={s.main}>
+    <Box className={s.main} sx={styles.root}>
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant={"h4"} fontWeight={"bold"}>
-            Main Category
+            Category
           </Typography>
         </Grid>
         <Grid item xs={12} sm={4} md={3} lg={3}>
-          <Button
-            variant={"contained"}
-            size={"large"}
-            onClick={() => categoryHandler("")}
+          <IconButton
+            onClick={() => categoryHandler(null)}
+            sx={{ "&:hover": { tra: "green" } }}
           >
-            ALL
-          </Button>
+            <IconComponentAll />
+          </IconButton>
         </Grid>
         <Grid item xs={12} sm={4} md={3} lg={3}>
-          <Button
-            variant={"contained"}
-            size={"large"}
-            startIcon={<LocalDiningIcon />}
-            onClick={() => categoryHandler("FOODS")}
-          >
-            FOODS
-          </Button>
+          <IconButton onClick={() => categoryHandler("FOODS")}>
+            <IconFoods />
+          </IconButton>
         </Grid>
         <Grid item xs={12} sm={4} md={3} lg={3}>
-          <Button
-            variant={"contained"}
-            size={"large"}
-            startIcon={<DirectionsCarIcon />}
-            onClick={() => categoryHandler("CARS")}
-          >
-            CARS
-          </Button>
+          <IconButton onClick={() => categoryHandler("CARS")}>
+            <IconCar />
+          </IconButton>
+        </Grid>
+
+        <Grid item xs={12} sm={4} md={3} lg={3}>
+          <IconButton onClick={() => categoryHandler("PROPERTY")}>
+            <IconHouse />
+          </IconButton>
         </Grid>
         <Grid item xs={12} sm={4} md={3} lg={3}>
-          <Button
-            variant={"contained"}
-            size={"large"}
-            startIcon={<HomeWorkIcon />}
-            onClick={() => categoryHandler("HOME")}
-          >
-            HOME
-          </Button>
+          <IconButton onClick={() => categoryHandler("JOB")}>
+            <JobComponent />
+          </IconButton>
         </Grid>
         <Grid item xs={12} sm={4} md={3} lg={3}>
-          <Button
-            variant={"contained"}
-            size={"large"}
-            startIcon={<IconSearchProperty />}
-            onClick={() => categoryHandler("PROPERTY")}
-          >
-            PROPERTY
-          </Button>
+          <IconButton onClick={() => categoryHandler("ELECTRONICS")}>
+            <IconElectronics />
+          </IconButton>
         </Grid>
         <Grid item xs={12} sm={4} md={3} lg={3}>
-          <Button
-            size={"large"}
-            variant={"contained"}
-            startIcon={<GroupIcon />}
-            onClick={() => categoryHandler("JOB")}
-          >
-            JOB
-          </Button>
+          <IconButton onClick={() => categoryHandler("FASHION")}>
+            <IconFashion />
+          </IconButton>
         </Grid>
         <Grid item xs={12} sm={4} md={3} lg={3}>
-          <Button
-            size={"large"}
-            variant={"contained"}
-            startIcon={<TvIcon />}
-            onClick={() => categoryHandler("ELECTRONICS")}
-          >
-            ELECTRONICS
-          </Button>
-        </Grid>
-        <Grid item xs={12} sm={4} md={3} lg={3}>
-          <Button
-            size={"large"}
-            variant={"contained"}
-            startIcon={<TvIcon />}
-            onClick={() => categoryHandler("ELECTRONICS")}
-          >
-            ELECTRONICS
-          </Button>
+          <IconButton onClick={() => categoryHandler("HOME")}>
+            <IconComponentHome />
+          </IconButton>
         </Grid>
       </Grid>
     </Box>

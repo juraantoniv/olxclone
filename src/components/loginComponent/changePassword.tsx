@@ -24,16 +24,9 @@ const Schema = z
     new_password2: z.string().min(1).max(10),
     confirmPassword: z.string().optional(),
   })
-  .superRefine((data, ctx) => {
-    if (data.new_password1 !== data.new_password2) {
-      ctx.addIssue({
-        message: "Passwords do not match",
-        code: z.ZodIssueCode.custom,
-        path: ["confirmPassword"],
-      });
-    }
-
-    return data;
+  .refine((data) => data.new_password1 === data.new_password2, {
+    message: "Passwords do not match",
+    path: ["confirmPassword"],
   });
 
 export type FormTypeForChangePassword = z.infer<typeof Schema>;
@@ -50,57 +43,57 @@ export const ChangePassword: React.FC<ChangePasswordType> = ({
     resolver: zodResolver(Schema),
   });
 
-  const onSubmit = async (data: FormTypeForChangePassword) => {};
+  const onSubmit = async (data: FormTypeForChangePassword) => {
+    console.log(data);
+  };
 
   return (
-    <React.Fragment>
-      <Card
-        component="form"
-        onSubmit={handleSubmit(onSubmit)}
-        className={s.container}
-        variant={"outlined"}
-      >
-        <CssBaseline />
-        <Typography component={"p"}>
-          Change your password here. After saving, you'll be logged out.
-        </Typography>
-        <TextField
-          {...register("old_password")}
-          name="old_password"
-          type="password"
-          size={"small"}
-          label="Current password"
-          helperText={errors.old_password?.message}
-          error={!!errors.old_password?.message}
-        />
-        <TextField
-          {...register("new_password1")}
-          name={"new_password1"}
-          type="password"
-          size={"small"}
-          label="New password"
-          helperText={errors.new_password1?.message}
-          error={!!errors.new_password1?.message}
-        />
-        <TextField
-          {...register("new_password2")}
-          name={"new_password2"}
-          type="password"
-          size={"small"}
-          label={"Confirm password"}
-          helperText={errors.new_password2?.message}
-          error={!!errors.new_password2?.message}
-        />
+    <Card
+      component="form"
+      onSubmit={handleSubmit(onSubmit)}
+      className={s.container}
+      variant={"outlined"}
+    >
+      <CssBaseline />
+      <Typography component={"p"}>
+        Change your password here. After saving, you'll be logged out.
+      </Typography>
+      <TextField
+        {...register("old_password")}
+        name="old_password"
+        type="text"
+        size={"small"}
+        label="Current password"
+        helperText={errors.old_password?.message}
+        error={!!errors.old_password?.message}
+      />
+      <TextField
+        {...register("new_password1")}
+        name={"new_password1"}
+        type="text"
+        size={"small"}
+        label="New password"
+        helperText={errors.new_password1?.message}
+        error={!!errors.new_password1?.message}
+      />
+      <TextField
+        {...register("new_password2")}
+        name={"new_password2"}
+        type="text"
+        size={"small"}
+        label={"Confirm password"}
+        helperText={errors.new_password2?.message}
+        error={!!errors.new_password2?.message}
+      />
 
-        {!!errors.confirmPassword?.message ? (
-          <Typography style={{ color: "red" }} variant={"subtitle2"}>
-            Passwords do not match
-          </Typography>
-        ) : null}
-        <Button variant={"contained"} type={"submit"} startIcon={<SaveIcon />}>
-          Change password
-        </Button>
-      </Card>
-    </React.Fragment>
+      {!!errors.confirmPassword?.message ? (
+        <Typography style={{ color: "red" }} variant={"subtitle2"}>
+          Passwords do not match
+        </Typography>
+      ) : null}
+      <Button variant={"contained"} type={"submit"} startIcon={<SaveIcon />}>
+        Change password
+      </Button>
+    </Card>
   );
 };

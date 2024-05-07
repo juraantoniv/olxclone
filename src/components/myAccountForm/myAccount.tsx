@@ -41,14 +41,13 @@ export const MyAccount: React.FC<MyType> = ({ close }) => {
     formState: { errors },
   } = useForm<FormTypeForUpdate>({
     resolver: zodResolver(Schema),
+    mode: "onBlur",
   });
-
-  console.log(errors);
 
   const save = () => {
     setDisabled(true);
   };
-
+  console.log(errors);
   const onSubmit = async (data: FormTypeForUpdate) => {
     try {
       const user = await userService.updateUserData(data);
@@ -101,8 +100,10 @@ export const MyAccount: React.FC<MyType> = ({ close }) => {
             defaultValue={Number(user.age)}
             disabled={disabled}
           />
-          <Button onClick={editMode}>Edit account</Button>
-          <Button type={"submit"} onClick={save}>
+          <Button onClick={editMode} variant={"contained"}>
+            Edit account
+          </Button>
+          <Button type={"submit"} onClick={save} variant={"contained"}>
             Save
           </Button>
         </form>

@@ -16,13 +16,14 @@ export type UserInfoType = {
   id: string;
   name?: string;
   city?: string;
-  age?: string;
+  age?: number;
   avatar?: string;
   email: string;
-  active: string;
+  active: "active" | "banned";
   role: string;
   userPremiumRights: string;
   created: Date;
+  phone: string;
 };
 
 export type DataGoods = {
@@ -36,7 +37,7 @@ export type DataGoods = {
   views?: [];
   likes?: [];
   active: string;
-  price: string;
+  price: number;
   created: Date;
   updatedAt: string;
   boughtBy?: string;
@@ -49,6 +50,7 @@ export type ParamsType = {
   search?: string;
   offset?: string;
   ORDER?: string;
+  region?: string | null;
   category?: string | null;
 };
 

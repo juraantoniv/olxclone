@@ -1,20 +1,24 @@
 import { Avatar, Box, Tooltip } from "@material-ui/core";
 import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import PasswordIcon from "@mui/icons-material/Password";
 import PersonIcon from "@mui/icons-material/Person";
+import RecentActorsIcon from "@mui/icons-material/RecentActors";
 import { Divider, ListItemIcon, Menu, MenuItem } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { selectCount, selectUser } from "../../store/store";
 import { RecoveryPasswordDiag } from "../forgotPassword/recoveryPasswordDiag";
 import { AdminModal } from "../myAccountForm/AdminMenu";
 import { CrateAccountModal } from "../myAccountForm/crateAccountModal";
 import { MyAccountModal } from "../myAccountForm/myAccountModal";
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
 export const TollTip = () => {
   const user = useSelector(selectUser);
+
+  const navigate = useNavigate();
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
     null,
@@ -38,7 +42,11 @@ export const TollTip = () => {
     setAnchorElUser(null);
   };
 
-  console.log(user);
+  const handleClickOpen = () => {
+    setAnchorElUser(null);
+    navigate("myGoods");
+  };
+
   return (
     <Box sx={{ flexGrow: 0 }}>
       <Tooltip title="Open settings">
@@ -92,6 +100,17 @@ export const TollTip = () => {
           variant={"fullWidth"}
         />
         <AdminModal close={handleCloseUserMenu} />
+        <Divider
+          component={"div"}
+          style={{ width: "100%" }}
+          variant={"fullWidth"}
+        />
+        <MenuItem onClick={handleClickOpen}>
+          <ListItemIcon>
+            <RecentActorsIcon />
+          </ListItemIcon>
+          My goods
+        </MenuItem>
       </Menu>
     </Box>
   );

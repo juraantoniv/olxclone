@@ -6,6 +6,7 @@ import Slider from "react-slick";
 
 import { userActions, userThunks } from "../../store/slices";
 import {
+  regionSelector,
   selectCars,
   selectCount,
   setOffset,
@@ -32,6 +33,7 @@ export const GoodsList = () => {
   const direction = useSelector(sortDirection);
   // const [sortDirection, setSort] = useState<boolean>(false);
   const [currency, setCurrency] = React.useState("");
+  const region = useSelector(regionSelector);
   const { data } = useSelector(selectCars);
 
   const currencyType = (type: string) => {
@@ -45,35 +47,32 @@ export const GoodsList = () => {
       userThunks.fetchGoods({
         limit: String(goods?.limit),
         offset: items.toString(),
-        ORDER: !direction ? "ASC" : "DESC",
+        ORDER: direction ? "ASC" : "DESC",
+        region,
       }),
     );
   };
 
   return (
-    <>
-      {data ? (
-        <Box className={s.container}>
-          <Card className={s.sideContainer} variant={"outlined"}>
-            <Box className={s.sortContainer}>
-              <SelectItemsCount />
-              <SortComponent />
-            </Box>
-            <SelectComponent setCurrencyType={currencyType} />
-          </Card>
-          <Card className={s.contentContainer} variant={"outlined"}>
-            <CardItem items={goods?.data} currencyType={currency} />
-            <Pagination
-              sx={{ marginTop: "30px" }}
-              count={amountPages}
-              page={goods?.page}
-              onChange={handleChange}
-              variant="outlined"
-              shape="rounded"
-            />
-          </Card>
+    <Box className={s.container}>
+      <Card className={s.sideContainer} variant={"outlined"}>
+        <Box className={s.sortContainer}>
+          <SelectItemsCount />
+          <SortComponent />
         </Box>
-      ) : null}
-    </>
+        <SelectComponent setCurrencyType={currencyType} />
+      </Card>
+      <Card className={s.contentContainer} variant={"outlined"}>
+        <CardItem items={goods?.data} currencyType={currency} />
+        <Pagination
+          sx={{ marginTop: "30px" }}
+          count={amountPages}
+          page={goods?.page}
+          onChange={handleChange}
+          variant="outlined"
+          shape="rounded"
+        />
+      </Card>
+    </Box>
   );
 };

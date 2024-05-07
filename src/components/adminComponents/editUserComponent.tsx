@@ -1,7 +1,5 @@
 import { Tooltip } from "@material-ui/core";
 import EditIcon from "@mui/icons-material/Edit";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
@@ -23,8 +21,6 @@ export const EditUserModal: React.FC<EditUserComponentType> = ({
 }) => {
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = React.useState<UserInfoType>();
-  console.log(id);
-  console.log(user);
 
   useEffect(() => {
     userService.getById(id).then(({ data }) => {
@@ -43,12 +39,7 @@ export const EditUserModal: React.FC<EditUserComponentType> = ({
           <EditIcon fontSize={"small"} />
         </Tooltip>
       </Typography>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose}>
         <EditAccountByAdmin close={handleClose} user={user!} />
       </Modal>
     </div>

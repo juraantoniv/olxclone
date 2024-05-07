@@ -5,18 +5,20 @@ import { useSelector } from "react-redux";
 import { Outlet, useSearchParams } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 
+import { ReactSlick } from "../../components/cauruselComponent/caurusell";
 import { Favorites } from "../../components/favoritsGoods/favoritsGoods";
 import { FooterPage } from "../../components/footer/reactFooter";
 import CustomizedInputBase from "../../components/input/inputBase";
-import { GoogleMapsComponent } from "../../components/mapComponent/mapComponent";
-import { ResponsiveCarousel } from "../../components/responsiveCarousel/responsiveCarousel";
 import { userActions, userThunks } from "../../store/slices";
 import {
   category,
+  langValue,
   loadingStatus,
+  regionSelector,
   selectCars,
   selectCount,
   selectUser,
+  setGoodOwner,
   setOffset,
   sortDirection,
   useAppDispatch,
@@ -31,11 +33,13 @@ export const MainLayout = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortValue = useSelector(sortDirection);
   const limit = searchParams.get("limit");
-  console.log(limit);
   const dispatch = useAppDispatch();
   const itemPage = useSelector(selectCount);
+  const region = useSelector(regionSelector);
+  const lang = useSelector(langValue);
   const skip = useSelector(setOffset);
-  const { data } = useSelector(selectCars);
+  const user = useSelector(selectUser);
+  console.log(sortValue);
 
   useEffect(() => {
     dispatch(
@@ -43,27 +47,38 @@ export const MainLayout = () => {
         limit: itemPage.toString(),
         ORDER: sortValue ? "ASC" : "DESC",
         category: categoryValue,
+        region: region,
       }),
     )
       .unwrap()
       .then()
       .catch((e) => {
-        dispatch(userActions.logOff({}));
+        userThunks.fetchGoods({
+          limit: itemPage.toString(),
+          ORDER: sortValue ? "ASC" : "DESC",
+          category: categoryValue,
+          region: region,
+        });
         dispatch(userActions.setCount(5));
       });
-  }, [categoryValue]);
+  }, [categoryValue, region, sortValue]);
+
+  console.log(loading);
 
   return (
     <Box className={s.mainBox}>
       <ToastContainer />
       <SearchAppBar />
       {loading === "loading" ? (
-        <LinearProgress sx={{ margin: "25px" }} />
+        <LinearProgress
+          color={"secondary"}
+          sx={{ margin: "1px", width: "100%" }}
+        />
       ) : null}
       <CustomizedInputBase />
       <Outlet />
-      <Favorites />
-      <ResponsiveCarousel />
+      {user.name ? <Favorites /> : null}
+      <ReactSlick />
       <FooterPage />
     </Box>
   );

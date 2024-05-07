@@ -1,20 +1,21 @@
-import EmailIcon from "@mui/icons-material/Email";
 import HomeIcon from "@mui/icons-material/Home";
-import SearchIcon from "@mui/icons-material/Search";
 import { Badge, Button, Switch } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import InputBase from "@mui/material/InputBase";
 import { alpha, styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
+import { Trans } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { I18nLanguageChanger } from "../../common/i18nLanguageChanger/languageSelect";
+import { BuyPremiumModal } from "../../components/buyPremAccount/buyPremiumModal";
+import { FormDialogHelp } from "../../components/helpDIalog/sendMessegeToAdminDialog";
 import { LoginDiag } from "../../components/loginDiag/loginDiag";
 import { LogOut } from "../../components/logOut/logOut";
 import { Messages } from "../../components/messeges/messages";
+import { PostGoodDialog } from "../../components/postGoodsForm/postGood";
 import { TollTip } from "../../components/tollTip/tollTip";
 import { userActions } from "../../store/slices";
 import { selectUser, themeValue, useAppDispatch } from "../../store/store";
@@ -46,15 +47,19 @@ export const SearchAppBar = () => {
                 startIcon={<HomeIcon />}
                 variant={"contained"}
               >
-                Home
+                <Trans>Home</Trans>
               </Button>
               <MaterialUISwitch checked={darkMode} onChange={handleChange} />
+              <FormDialogHelp />
+              <BuyPremiumModal />
             </Box>
 
             <Box className={s.leftBox}>
               {user.name ? <Messages /> : null}
+              {user.name ? <PostGoodDialog /> : null}
               {user.name ? <TollTip /> : null}
               {user.name ? <LogOut /> : <LoginDiag />}
+              <I18nLanguageChanger />
             </Box>
           </Box>
         </Toolbar>

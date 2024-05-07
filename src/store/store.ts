@@ -45,6 +45,7 @@ export const setOffset = (state: AppRootStateType) => state.offset;
 export const loadingStatus = (state: AppRootStateType) => state.loading;
 export const goodIdSelected = (state: AppRootStateType) => state.goodId;
 export const category = (state: AppRootStateType) => state.category;
+export const regionSelector = (state: AppRootStateType) => state.region;
 
 export const themeValue = (state: AppRootStateType) => state.darkMode;
 export const sortDirection = (state: AppRootStateType) => state.sort;

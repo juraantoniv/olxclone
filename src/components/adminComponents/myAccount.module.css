@@ -1,14 +1,20 @@
 .box{
-    background-color: white;
-    height: 400px;
-    width: 300px;
-    opacity: 5;
+    height: 250px;
+    width: 500px;
     border-radius: 5px;
-    padding: 10px;
-    gap: 20px;
+    padding: 20px;
     margin-left: 40%;
     margin-top: 5%;
 }
+
+.headerBox{
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 5px;
+}
+
+
 
 @media screen and (max-width: 768px) {
     .box{

@@ -4,22 +4,27 @@ import { Button, Card, CardMedia, Divider } from "@mui/material";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
+import { Trans } from "react-i18next";
 import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import { DataGoods, UserInfoType } from "../../common/types/types";
 import { carsApiService } from "../../services/goods.service";
-import { goodIdSelected, setGoodOwner } from "../../store/store";
+import { goodIdSelected, langValue, setGoodOwner } from "../../store/store";
 import { AddFavorite } from "../addFavorite/addFavorite";
 import { ProfileAvatar } from "../avatar/profileAvatar";
 import { GoogleMapsComponent } from "../mapComponent/mapComponent";
 import { FormDialog } from "../sendMessegeDIalog/sendMessegeDialog";
+import IconComponentPhone from "../svg/phone";
 import s from "./currentGoodInfo.module.css";
 
 export const CurrentGoodInfo = () => {
   const id = useSelector(goodIdSelected);
   const user = useSelector(setGoodOwner);
+  const lang = useSelector(langValue);
+  const navigate = useNavigate();
 
-  const [goods, setGoods] = useState<DataGoods>();
+  const [goods, setGoods] = useState<DataGoods>({} as DataGoods);
 
   useEffect(() => {
     carsApiService.getById(id).then((r) => {
@@ -27,7 +32,9 @@ export const CurrentGoodInfo = () => {
     });
   }, [id, user]);
 
-  console.log(user);
+  const currentUserGoodsHandler = (id: string) => {
+    navigate(`userGoods/${id}`);
+  };
 
   return (
     <Card className={s.container} variant={"outlined"}>
@@ -43,7 +50,13 @@ export const CurrentGoodInfo = () => {
           </Card>
 
           <Card variant={"outlined"} className={s.item2}>
-            <Typography variant={"h5"}>Description</Typography>
+            <Typography
+              variant={"h5"}
+              sx={{ textDecoration: "underline" }}
+              fontFamily={"monospace"}
+            >
+              <Trans>Description</Trans>
+            </Typography>
             <Typography>{goods?.description}</Typography>
           </Card>
           <Divider
@@ -69,8 +82,8 @@ export const CurrentGoodInfo = () => {
               <Box sx={{ marginLeft: "85%" }}>
                 <AddFavorite />
               </Box>
-              <FormDialog />
-              <Button>+380977863872</Button>
+              <FormDialog id={goods?.user_id} />
+              <Button>{user.phone}</Button>
             </Card>
 
             <Card sx={{ width: "100%", padding: "10px" }} variant={"outlined"}>
@@ -86,11 +99,20 @@ export const CurrentGoodInfo = () => {
         </Grid>
         <Grid item xs={12}>
           <Card variant={"outlined"} className={s.profile}>
-            <ProfileAvatar name={false} id={user.id} />
+            <Box onClick={() => currentUserGoodsHandler(user.id)}>
+              <ProfileAvatar name={false} id={user.id} />
+            </Box>
             <Typography alignItems={"center"} variant={"h5"}>
               {user.name}
             </Typography>
-            <CallIcon />
+            {user.phone ? (
+              <Card variant={"outlined"} sx={{ padding: "5px" }}>
+                <CallIcon />
+                <Typography>{user.phone}</Typography>
+              </Card>
+            ) : (
+              <IconComponentPhone />
+            )}
           </Card>
         </Grid>
       </Grid>
