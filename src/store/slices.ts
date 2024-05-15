@@ -14,6 +14,7 @@ import {
   UserInfoType,
 } from "../common/types/types";
 import { FormType } from "../components/loginComponent/loginComponentNew";
+import { CreateGoodsType } from "../components/postGoodsForm/postGood";
 import { carsApiService } from "../services/goods.service";
 import { createAppAsyncThunk } from "./create-app-thunk";
 import { AppDispatch, AppRootStateType } from "./store";
@@ -99,12 +100,12 @@ const fetchGoods = createAppAsyncThunk<GoodsType, ParamsType | void>(
     });
   },
 );
-const postCar = createAppAsyncThunk<DataGoods, FormType>(
+const postGood = createAppAsyncThunk<DataGoods, CreateGoodsType>(
   "cars/postCar",
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     return thunkTryCatch(thunkAPI, async () => {
-      const goods = await carsApiService.postCar(arg);
+      const goods = await carsApiService.postGoods(arg);
 
       return goods.data;
     });
@@ -126,7 +127,7 @@ export const userActions = slice.actions;
 export const userThunks = {
   fetchGoods,
   likeCar,
-  postCar,
+  postGood,
 };
 
 export const thunkTryCatch = async (

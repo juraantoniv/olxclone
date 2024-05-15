@@ -1,3 +1,4 @@
+import { Box } from "@material-ui/core";
 import FormControl from "@mui/material/FormControl";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -26,12 +27,11 @@ export const SelectItemsCount = () => {
   };
 
   return (
-    <>
-      <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+    <Box>
+      <FormControl size="small">
         <InputLabel id="demo-select-small-label">Count</InputLabel>
         <Select
           labelId="demo-select-small-label"
-          id="demo-select-small"
           value={itemPage.toString()}
           label="Count"
           onChange={handleChange}
@@ -40,6 +40,6 @@ export const SelectItemsCount = () => {
           <MenuItem value={10}>10</MenuItem>
         </Select>
       </FormControl>
-    </>
+    </Box>
   );
 };

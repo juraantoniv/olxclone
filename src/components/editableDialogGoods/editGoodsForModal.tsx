@@ -12,26 +12,27 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { DataGoods } from "../../common/types/types";
+import { carsApiService } from "../../services/goods.service";
 import s from "./editGoodsForModal.module.css";
 const Schema = z.object({
   title: z.string().min(1).optional(),
   description: z.string().min(1).optional(),
   price: z.number().min(1).max(99999).optional(),
-  // file: z.any(),
 });
 
-type FormTypeForUpdate = z.infer<typeof Schema>;
+export type FormTypeForUpdateModal = z.infer<typeof Schema>;
 
 type EditableGoodsType = {
   close: () => void;
   item: DataGoods;
+  setGoods: (data: DataGoods[]) => void;
 };
 export const EditableGoodsModal: React.FC<EditableGoodsType> = ({
   close,
   item,
+  setGoods,
 }) => {
   const [disabled, setDisabled] = useState<boolean>(true);
-
   const editMode = () => {
     setDisabled(false);
   };
@@ -41,7 +42,7 @@ export const EditableGoodsModal: React.FC<EditableGoodsType> = ({
     register,
     // control,
     formState: { errors, isValid },
-  } = useForm<FormTypeForUpdate>({
+  } = useForm<FormTypeForUpdateModal>({
     resolver: zodResolver(Schema),
     defaultValues: {
       description: item.description,
@@ -56,9 +57,12 @@ export const EditableGoodsModal: React.FC<EditableGoodsType> = ({
     setDisabled(true);
   };
 
-  const onSubmit = async (data: FormTypeForUpdate) => {
+  const onSubmit = async (data: FormTypeForUpdateModal) => {
     try {
-      console.log(data);
+      await carsApiService.editGoods(item.id, data);
+
+      const goods = await carsApiService.getMyGoods();
+      setGoods(goods.data.data);
       toast.info(`data was saved`);
     } catch (e) {
       console.log(e);
@@ -71,6 +75,7 @@ export const EditableGoodsModal: React.FC<EditableGoodsType> = ({
         onClick={close}
         sx={{
           cursor: "pointer",
+          marginLeft: "90%",
         }}
       />
       <Box
@@ -83,7 +88,7 @@ export const EditableGoodsModal: React.FC<EditableGoodsType> = ({
         }}
         onSubmit={handleSubmit(onSubmit)}
       >
-        <Grid container spacing={3}>
+        <Grid container spacing={3} sx={{ width: "100%" }}>
           <Grid item xs={12}>
             <TextField
               {...register("title")}
@@ -96,7 +101,7 @@ export const EditableGoodsModal: React.FC<EditableGoodsType> = ({
           </Grid>
           <Grid item xs={12}>
             <TextField
-              {...register("price")}
+              {...register("price", { valueAsNumber: true })}
               name={"price"}
               size={"small"}
               label="price"
@@ -106,7 +111,6 @@ export const EditableGoodsModal: React.FC<EditableGoodsType> = ({
           </Grid>
 
           <Grid item xs={12}>
-            {" "}
             <TextField
               {...register("description")}
               name={"description"}
@@ -128,12 +132,7 @@ export const EditableGoodsModal: React.FC<EditableGoodsType> = ({
               >
                 Edit
               </Button>
-              <Button
-                disabled={!isValid}
-                variant={"contained"}
-                type={"submit"}
-                onClick={save}
-              >
+              <Button variant={"contained"} type={"submit"} onClick={save}>
                 Save
               </Button>
             </ButtonGroup>

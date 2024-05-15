@@ -1,5 +1,6 @@
 import { DataGoods, GoodsType, ParamsType } from "../common/types/types";
 import { DataType } from "../components/adminPanel/dashboard";
+import { FormTypeForUpdateModal } from "../components/editableDialogGoods/editGoodsForModal";
 import { instance } from "./interceptors/interceptors";
 
 export const carsApiService = {
@@ -8,7 +9,7 @@ export const carsApiService = {
       params: {
         page: params?.page,
         limit: params?.limit,
-        search: params?.search,
+        search_field: params?.search,
         offset: params?.offset,
         ORDER: params?.ORDER,
         category: params?.category,
@@ -16,19 +17,24 @@ export const carsApiService = {
       },
     }),
   getById: (id: string) => instance.get<DataGoods>(`/goods/${id}`),
+  editGoods: (id: string, data: FormTypeForUpdateModal) =>
+    instance.patch<DataGoods>(`/goods/${id}`, {
+      ...data,
+    }),
   getUserGoods: (id: string) => instance.get<DataGoods[]>(`/goods/user/${id}`),
   getMyGoods: () => instance.get<GoodsType>(`/goods/user/my`),
-  likeCar: (id: string) => instance.post<void>(`cars/like/${id}`),
-  postCar: (data: any) =>
+  likeCar: (id: string) => instance.post<void>(`goods/like/${id}`),
+  postGoods: (data: any) =>
     instance.post<GoodsType>(
-      `/cars`,
+      `/goods`,
       {
-        brand: data.brand,
         description: data.description,
-        model: data.model,
+        title: data.title,
+        location: data.location,
+        region: data.region,
+        category: data.category,
         price: data.price,
         image: data.image,
-        currency_type: "UAH",
       },
       {
         headers: {

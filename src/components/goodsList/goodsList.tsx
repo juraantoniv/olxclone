@@ -16,6 +16,7 @@ import {
 import { CardItem } from "../goodsCard/cardItem";
 import { SelectComponent } from "../selectComponent/selectComponent";
 import { SelectItemsCount } from "../selectCountItems/selectItemsCount";
+import { RangeSlider } from "../slider/sliderComponent";
 import { SortComponent } from "../sortComponent/sortComponent";
 import s from "./goodsList.module.css";
 
@@ -35,10 +36,6 @@ export const GoodsList = () => {
   const [currency, setCurrency] = React.useState("");
   const region = useSelector(regionSelector);
   const { data } = useSelector(selectCars);
-
-  const currencyType = (type: string) => {
-    setCurrency(type);
-  };
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     const items = itemPage * (value - 1);
@@ -60,7 +57,7 @@ export const GoodsList = () => {
           <SelectItemsCount />
           <SortComponent />
         </Box>
-        <SelectComponent setCurrencyType={currencyType} />
+        <RangeSlider />
       </Card>
       <Card className={s.contentContainer} variant={"outlined"}>
         <CardItem items={goods?.data} currencyType={currency} />

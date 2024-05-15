@@ -20,8 +20,10 @@ export default function CustomizedInputBase() {
   ) => {
     setTitle(event.currentTarget.value);
   };
+
   const addItemHandler = () => {
     if (title.trim() !== "") {
+      console.log("ok");
       dispatch(userThunks.fetchGoods({ search: title }));
       setTitle("");
     } else {
@@ -56,7 +58,6 @@ export default function CustomizedInputBase() {
       <InputBase
         sx={{ ml: 1, flex: 1 }}
         placeholder="Search"
-        inputProps={{ "aria-label": "search google maps" }}
         onChange={search}
         onKeyPress={onKeyPressHandler}
       />

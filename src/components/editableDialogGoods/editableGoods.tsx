@@ -13,9 +13,13 @@ import { EditableGoodsModal } from "./editGoodsForModal";
 type EditableGoodsType = {
   text: string;
   item: GridRowModel<DataGoods>;
+  setGoods: (data: DataGoods[]) => void;
 };
-
-export const EditableGoods: React.FC<EditableGoodsType> = ({ text, item }) => {
+export const EditableGoods: React.FC<EditableGoodsType> = ({
+  text,
+  item,
+  setGoods,
+}) => {
   const [open, setOpen] = React.useState(false);
 
   console.log(item);
@@ -34,7 +38,11 @@ export const EditableGoods: React.FC<EditableGoodsType> = ({ text, item }) => {
       </Typography>
 
       <Modal open={open} onClose={handleClose}>
-        <EditableGoodsModal close={handleClose} item={item} />
+        <EditableGoodsModal
+          close={handleClose}
+          item={item}
+          setGoods={setGoods}
+        />
       </Modal>
     </Box>
   );

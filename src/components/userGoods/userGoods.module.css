@@ -15,6 +15,11 @@
     height: 150px;
 }
 
+.box{
+    cursor: pointer;
+    width: 80%;
+}
+
 .info{
     display: flex;
     justify-content: start;
