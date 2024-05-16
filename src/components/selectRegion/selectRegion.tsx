@@ -4,11 +4,13 @@ import ListSubheader from "@mui/material/ListSubheader";
 import MenuItem from "@mui/material/MenuItem";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import * as React from "react";
+import { useSelector } from "react-redux";
 
 import { userActions } from "../../store/slices";
-import { useAppDispatch } from "../../store/store";
+import { selectUser, useAppDispatch } from "../../store/store";
 
 export default function GroupedSelect() {
+  const user = useSelector(selectUser);
   const dispatch = useAppDispatch();
   const onChangeHandler = (event: SelectChangeEvent) => {
     dispatch(userActions.setRegion(event.target.value));
@@ -23,6 +25,7 @@ export default function GroupedSelect() {
           defaultValue="AllRegions"
           id="grouped-select"
           label="Region"
+          disabled={!user.name}
         >
           <MenuItem value={""}>AllRegions</MenuItem>
           <MenuItem value={"Vinnytska"}>Vinnytska</MenuItem>

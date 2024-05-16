@@ -1,5 +1,3 @@
-import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-import EuroIcon from "@mui/icons-material/Euro";
 import InfoIcon from "@mui/icons-material/Info";
 import {
   Badge,
@@ -9,6 +7,7 @@ import {
   CardActions,
   CardContent,
   CardMedia,
+  Divider,
   Grid,
   Stack,
 } from "@mui/material";
@@ -19,13 +18,14 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-import { DataGoods, GoodsType, UserInfoType } from "../../common/types/types";
+import { IconEye } from "../../common/iconsAndSVGComponents/eye";
+import { IconHeart } from "../../common/iconsAndSVGComponents/heart";
+import svg from "../../common/iconsAndSVGComponents/image-landscape-png-svgrepo-com.svg";
+import { DataGoods, UserInfoType } from "../../common/types/types";
 import { userService } from "../../services/auth.service";
 import { userActions, userThunks } from "../../store/slices";
 import { selectCount, setOffset, useAppDispatch } from "../../store/store";
 import { CarOrder } from "../oder/goodsOrder";
-import { IconEye } from "../svg/eye";
-import { IconHeart } from "../svg/heart";
 import s from "./cardItem.module.css";
 
 type cardContent = {
@@ -83,24 +83,47 @@ export const CardItem: React.FC<cardContent> = ({ items, currencyType }) => {
               <CardMedia
                 component="img"
                 height="150px"
-                image={el.image}
-                alt="car"
-                sx={{ borderRadius: "10px" }}
+                image={
+                  !el.image?.includes("null")
+                    ? el.image
+                    : "https://www.shutterstock.com/image-vector/no-image-available-vector-illustration-260nw-744886198.jpg"
+                }
+                alt="good"
               />
               <CardContent>
+                <Divider variant={"middle"} sx={{ width: "100%" }} />
                 <Box className={s.boxCurrency}>
                   <Typography gutterBottom variant="h5" component="div">
                     {el.region}
                   </Typography>
-                  <Typography variant={"caption"} fontSize={"large"}>
-                    {el.price}
+                  <Divider orientation="vertical" flexItem />
+                  <Typography
+                    variant="h5"
+                    component={"div"}
+                    fontFamily={"serif"}
+                    align={"center"}
+                  >
+                    {el.location}
+                  </Typography>
+                  <Divider orientation="vertical" flexItem />
+                  <Typography variant={"caption"} fontSize={"small"}>
+                    {el.price} UAH
                   </Typography>
                 </Box>
+                <Divider variant={"middle"} sx={{ width: "100%" }} />
+                <Typography
+                  fontSize={"x-large"}
+                  variant="subtitle1"
+                  sx={{ textDecoration: "underline" }}
+                >
+                  {el.title}
+                </Typography>
                 <Typography variant="body2" color="text.secondary">
                   {el.description}
                 </Typography>
               </CardContent>
             </CardActionArea>
+            <Divider variant={"middle"} sx={{ width: "100%" }} />
             <CardActions className={s.cardActions}>
               <Stack direction={"row"}>
                 <Button

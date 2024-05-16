@@ -50,7 +50,11 @@ export const UserGoods = () => {
             <Card variant={"outlined"} className={s.item}>
               <CardMedia
                 component="img"
-                image={g.image}
+                image={
+                  !g.image?.includes("null")
+                    ? g.image
+                    : "https://www.shutterstock.com/image-vector/no-image-available-vector-illustration-260nw-744886198.jpg"
+                }
                 alt="good"
                 sx={{ width: "20%" }}
               />

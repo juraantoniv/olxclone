@@ -1,13 +1,18 @@
 .container{
     display: flex;
-    margin-top: 10px;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    background-color: white;
     border-radius: 5px;
-    padding: 15px;
-    width: 20vw;
+    padding: 20px;
+    width: 450px;
+}
+
+.mainBox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }
 
 

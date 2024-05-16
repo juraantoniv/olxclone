@@ -7,10 +7,10 @@ import Typography from "@mui/material/Typography";
 import * as React from "react";
 import { useTranslation } from "react-i18next";
 
-import IconComponentLangENG from "../../components/svg/langENG";
-import IconComponentLangUA from "../../components/svg/langUA";
 import { userActions } from "../../store/slices";
 import { useAppDispatch } from "../../store/store";
+import IconComponentLangENG from "../iconsAndSVGComponents/langENG";
+import IconComponentLangUA from "../iconsAndSVGComponents/langUA";
 
 export const I18nLanguageChanger = () => {
   const {

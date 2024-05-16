@@ -63,8 +63,6 @@ export const MainLayout = () => {
       });
   }, [categoryValue, region, sortValue]);
 
-  console.log(loading);
-
   return (
     <Box className={s.mainBox}>
       <ToastContainer />

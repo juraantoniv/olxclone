@@ -7,7 +7,7 @@ import { useSelector } from "react-redux";
 import { DataGoods, GoodsType, UserInfoType } from "../../common/types/types";
 import { carsApiService } from "../../services/goods.service";
 import { selectUser, setGoodOwner } from "../../store/store";
-import { DeleteUserModal } from "../deleteUserModal/deleteUserModal";
+import { DeleteModal } from "../deleteUserModal/deleteUserModal";
 import { EditableGoods } from "../editableDialogGoods/editableGoods";
 import s from "./myGoodsList.module.css";
 
@@ -42,6 +42,7 @@ export const MyGoodsList = () => {
   ];
   const [goods, setGoods] = useState<DataGoods[]>([]);
   const [item, setItem] = useState<string>("");
+  const [id, SetId] = useState<string>("");
   const user = useSelector(selectUser);
 
   useEffect(() => {
@@ -50,10 +51,6 @@ export const MyGoodsList = () => {
     });
   }, [user]);
 
-  const setId = (id: string) => {
-    console.log(id);
-  };
-
   const updateGoods = (goods: DataGoods[]) => {
     setGoods(goods);
   };
@@ -61,7 +58,7 @@ export const MyGoodsList = () => {
   const onChange = (params: GridCellParams) => {
     if (params.formattedValue === "no") {
       setItem(params.row.id);
-      setId(params.row.id);
+      SetId(params.row.id);
     } else {
       setItem("");
     }
@@ -70,7 +67,16 @@ export const MyGoodsList = () => {
   return (
     <>
       <Box style={{ height: 400, width: "60%" }}>
-        <Box className={s.iconBox}>{item ? <DeleteUserModal /> : null}</Box>
+        <Box className={s.iconBox}>
+          {item ? (
+            <DeleteModal
+              setGoods={updateGoods}
+              id={id}
+              mode={false}
+              userId={user.id}
+            />
+          ) : null}
+        </Box>
 
         <DataGrid
           rows={goods}

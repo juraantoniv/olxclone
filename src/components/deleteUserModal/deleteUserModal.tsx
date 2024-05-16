@@ -1,19 +1,34 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import LogoutIcon from "@mui/icons-material/Logout";
 import { Button, Card, Divider, Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { Trans } from "react-i18next";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
+import { DataGoods, UserInfoType } from "../../common/types/types";
+import { adminService, userService } from "../../services/auth.service";
+import { carsApiService } from "../../services/goods.service";
 import { useAppDispatch } from "../../store/store";
 import s from "./delteUserModal.module.css";
 
-export const DeleteUserModal = () => {
-  const [open, setOpen] = React.useState(false);
+type DeleteUserModalType = {
+  mode: boolean;
+  id: string;
+  setGoods?: (data: DataGoods[]) => void;
+  userId?: string | undefined;
+  setUsers?: (users: UserInfoType[]) => void;
+};
 
-  const navigate = useNavigate();
+export const DeleteModal: React.FC<DeleteUserModalType> = ({
+  mode,
+  id,
+  userId,
+  setGoods,
+  setUsers,
+}) => {
+  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -23,8 +38,26 @@ export const DeleteUserModal = () => {
     setOpen(false);
   };
 
-  const dispatch = useAppDispatch();
-  const logOutHandler = async () => {};
+  const deleteHandler = async () => {
+    try {
+      mode
+        ? await adminService.deleteUser(userId)
+        : await carsApiService.deleteGood(id);
+
+      mode ? toast.info("User was deleted") : toast.info("Goods was deleted");
+      const goods = await carsApiService.getUserGoods(userId!);
+      if (setGoods) {
+        setGoods(goods.data);
+      }
+      const users = await userService.getAllUsers();
+      if (setUsers) {
+        setUsers(users.data);
+      }
+      handleClose();
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   return (
     <Box>
@@ -46,7 +79,7 @@ export const DeleteUserModal = () => {
             </Button>
             <Button
               startIcon={<DeleteIcon />}
-              onClick={logOutHandler}
+              onClick={deleteHandler}
               variant={"contained"}
               size={"medium"}
               className={s.currentButton}

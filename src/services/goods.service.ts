@@ -46,4 +46,5 @@ export const carsApiService = {
   getFavorite: () => instance.get<GoodsType>(`goods/favorite/my`),
   addFavorite: (id: string) => instance.post<void>(`goods/favorite/${id}`),
   getStatics: () => instance.get<DataType[]>(`goods/statics/all`),
+  deleteGood: (id: string) => instance.delete<void>(`goods/${id}`),
 };

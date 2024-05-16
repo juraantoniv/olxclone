@@ -6,14 +6,16 @@ import InputBase from "@mui/material/InputBase";
 import Paper from "@mui/material/Paper";
 import * as React from "react";
 import { KeyboardEvent, useState } from "react";
+import { useSelector } from "react-redux";
 
 import { userThunks } from "../../store/slices";
-import { useAppDispatch } from "../../store/store";
+import { selectUser, useAppDispatch } from "../../store/store";
 import GroupedSelect from "../selectRegion/selectRegion";
 
 export default function CustomizedInputBase() {
   const [title, setTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
+  const user = useSelector(selectUser);
   const dispatch = useAppDispatch();
   const search = (
     event: React.ChangeEvent<HTMLTextAreaElement | HTMLInputElement>,

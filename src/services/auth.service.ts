@@ -9,6 +9,7 @@ import {
 } from "../common/types/types";
 import { FormTypeForChangePassword } from "../components/loginComponent/changePassword";
 import { FormType } from "../components/loginComponent/loginComponentNew";
+import { FormTypeCreateUserNew } from "../components/myAccountForm/createAccountNew";
 import { instance } from "./interceptors/interceptors";
 
 export const authService = {
@@ -41,10 +42,11 @@ export const authService = {
     instance.post(`auth/confirm_password/${token}`, {
       new_password: password,
     }),
-  createUser: (user: any) =>
+  createUser: (user: FormTypeCreateUserNew) =>
     instance.post(
       "auth/sign-up",
       {
+        phone: user.phone,
         name: user.name,
         password: user.password,
         age: user.age,
@@ -78,4 +80,9 @@ export const userService = {
     instance.patch("users", {
       ...user,
     }),
+};
+
+export const adminService = {
+  deleteUser: (id: string | undefined) =>
+    instance.delete<void>(`admin/delete/${id}`),
 };

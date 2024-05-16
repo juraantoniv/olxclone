@@ -36,17 +36,20 @@ export const UsersDataTable = () => {
 
   useEffect(() => {
     userService.getAllUsers().then((data) => {
-      console.log(data.data);
       setUsers(data.data);
     });
   }, []);
 
-  const setId = (id: string) => {
-    console.log(id);
+  const setUser = (users: UserInfoType[]) => {
+    setUsers(users);
   };
   return (
     <>
-      <UniversalTableComponent columns={columns} data={users} setId={setId} />
+      <UniversalTableComponent
+        columns={columns}
+        data={users}
+        setUser={setUser}
+      />
     </>
   );
 };

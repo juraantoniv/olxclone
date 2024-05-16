@@ -29,15 +29,8 @@ export const CrateAccountModal: React.FC<CrateAccountModalType> = ({
         </ListItemIcon>
         Add another account
       </MenuItem>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="parent-modal-title"
-        aria-describedby="parent-modal-description"
-      >
-        <Box>
-          <SignUp />
-        </Box>
+      <Modal open={open} onClose={handleClose}>
+        <SignUp />
       </Modal>
     </div>
   );

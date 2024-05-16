@@ -1,3 +1,5 @@
+import "react-international-phone/style.css";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
@@ -5,17 +7,15 @@ import { Card } from "@mui/material";
 import Avatar from "@mui/material/Avatar";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Checkbox from "@mui/material/Checkbox";
 import Container from "@mui/material/Container";
-import CssBaseline from "@mui/material/CssBaseline";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import Grid from "@mui/material/Grid";
 import Link from "@mui/material/Link";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
+import { PhoneInput } from "react-international-phone";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { z } from "zod";
@@ -46,6 +46,7 @@ const Schema = z
   .object({
     name: z.string().min(1),
     password: z.string().optional(),
+    phone: z.string().optional(),
     confirmPassword: z.string().optional(),
     age: z.number().min(1).max(99),
     email: z.string().email(),
@@ -66,42 +67,38 @@ const Schema = z
 
 export type FormTypeCreateUserNew = z.infer<typeof Schema>;
 
-const defaultTheme = createTheme({
-  palette: {
-    mode: true ? "dark" : "light",
-  },
-});
-
 export const SignUp = () => {
   const {
     handleSubmit,
     register,
-    // control,
+    control,
     formState: { errors },
   } = useForm<FormTypeCreateUserNew>({
     resolver: zodResolver(Schema),
   });
   const navigate = useNavigate();
-  const dispatch = useAppDispatch();
   console.log(errors);
 
   const onSubmit = async (data: FormTypeCreateUserNew) => {
+    console.log(data);
     try {
-      await authService.createUser({ ...data, file: data.file[0] });
+      await authService.createUser({
+        ...data,
+        file: data.file[0],
+      });
       toast.info("User created", {
         type: "success",
         theme: "colored",
       });
       navigate("/");
-    } catch (e) {
-      toast.error("Something wrong happened");
-      console.log(e);
+    } catch (e: any) {
+      toast.error(`${e.response.data.messages}`);
       navigate("/");
     }
   };
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Box className={s.mainBox}>
       <Card className={s.container} variant={"outlined"}>
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
@@ -116,20 +113,24 @@ export const SignUp = () => {
           sx={{ mt: 3 }}
         >
           <Grid container spacing={2}>
-            <Button
-              startIcon={<CloudUploadIcon />}
-              variant="contained"
-              component="label"
-              style={{ margin: "1em" }}
-            >
-              Upload PHOTO
-              <input {...register("file")} name={"file"} type="file" hidden />
-            </Button>
             <Grid item xs={12} sm={6}>
+              <Button
+                startIcon={<CloudUploadIcon />}
+                variant="contained"
+                component="label"
+                fullWidth
+              >
+                Upload PHOTO
+                <input {...register("file")} name={"file"} type="file" hidden />
+              </Button>
+            </Grid>
+
+            <Grid item xs={6} sm={6}>
               <TextField
                 {...register("name")}
                 autoComplete="given-name"
                 name="name"
+                size={"small"}
                 required
                 fullWidth
                 label="First Name"
@@ -137,7 +138,7 @@ export const SignUp = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
+            <Grid item xs={6} sm={6}>
               <TextField
                 {...register("age", { valueAsNumber: true })}
                 name={"age"}
@@ -145,6 +146,21 @@ export const SignUp = () => {
                 helperText="Please enter age"
                 id="demo-helper-text-aligned"
                 label="age"
+              />
+            </Grid>
+            <Grid item xs={6} sm={6}>
+              <Controller
+                name="phone"
+                control={control}
+                rules={{ required: true }}
+                render={({ field: { onChange, value } }) => (
+                  <PhoneInput
+                    value={value}
+                    onChange={onChange}
+                    defaultCountry="ua"
+                    style={{ zIndex: "99999" }}
+                  />
+                )}
               />
             </Grid>
             <Grid item xs={12}>
@@ -206,8 +222,8 @@ export const SignUp = () => {
             </Grid>
           </Grid>
         </Box>
+        <Copyright sx={{ mt: 5 }} />
       </Card>
-      <Copyright sx={{ mt: 5 }} />
-    </Container>
+    </Box>
   );
 };

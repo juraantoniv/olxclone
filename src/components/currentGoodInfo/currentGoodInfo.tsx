@@ -8,6 +8,7 @@ import { Trans } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import IconComponentPhone from "../../common/iconsAndSVGComponents/phone";
 import { DataGoods, UserInfoType } from "../../common/types/types";
 import { carsApiService } from "../../services/goods.service";
 import { goodIdSelected, langValue, setGoodOwner } from "../../store/store";
@@ -15,7 +16,6 @@ import { AddFavorite } from "../addFavorite/addFavorite";
 import { ProfileAvatar } from "../avatar/profileAvatar";
 import { GoogleMapsComponent } from "../mapComponent/mapComponent";
 import { FormDialog } from "../sendMessegeDIalog/sendMessegeDialog";
-import IconComponentPhone from "../svg/phone";
 import s from "./currentGoodInfo.module.css";
 
 export const CurrentGoodInfo = () => {
@@ -44,7 +44,11 @@ export const CurrentGoodInfo = () => {
             <CardMedia
               component="img"
               height="100%"
-              image={goods?.image}
+              image={
+                !goods.image?.includes("null")
+                  ? goods.image
+                  : "https://www.shutterstock.com/image-vector/no-image-available-vector-illustration-260nw-744886198.jpg"
+              }
               alt="goods"
             />
           </Card>

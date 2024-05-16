@@ -14,6 +14,7 @@ import {
   useAppDispatch,
 } from "../../store/store";
 import { CardItem } from "../goodsCard/cardItem";
+import { NotFoundPage } from "../notFondComponent/notFoundPage";
 import { SelectComponent } from "../selectComponent/selectComponent";
 import { SelectItemsCount } from "../selectCountItems/selectItemsCount";
 import { RangeSlider } from "../slider/sliderComponent";
@@ -60,7 +61,11 @@ export const GoodsList = () => {
         <RangeSlider />
       </Card>
       <Card className={s.contentContainer} variant={"outlined"}>
-        <CardItem items={goods?.data} currencyType={currency} />
+        {goods?.data?.length ? (
+          <CardItem items={goods?.data} currencyType={currency} />
+        ) : (
+          <NotFoundPage />
+        )}
         <Pagination
           sx={{ marginTop: "30px" }}
           count={amountPages}

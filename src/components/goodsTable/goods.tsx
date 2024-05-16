@@ -36,16 +36,9 @@ export const GoodsDataTable = () => {
     });
   }, []);
 
-  const setId = (id: string) => {
-    console.log(id);
-  };
   return (
     <>
-      <UniversalTableComponent
-        columns={columnsGoods}
-        data={users}
-        setId={setId}
-      />
+      <UniversalTableComponent columns={columnsGoods} data={users} />
     </>
   );
 };

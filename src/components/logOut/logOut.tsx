@@ -17,6 +17,7 @@ import React from "react";
 import { Trans } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
+import { deleteTokens } from "../../common/localStorage/local.storege";
 import { authService } from "../../services/auth.service";
 import { userActions } from "../../store/slices";
 import { useAppDispatch } from "../../store/store";
@@ -39,9 +40,10 @@ export const LogOut = () => {
   const logOutHandler = async () => {
     try {
       await authService.logOut();
-      dispatch(userActions.logOff({}));
       dispatch(userActions.setCount(5));
       dispatch(userActions.setCurrenUser({}));
+      dispatch(userActions.setRegion(null));
+      deleteTokens();
       navigate("/");
     } catch (e) {}
   };

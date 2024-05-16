@@ -1,0 +1,11 @@
+.box{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 350px;
+    width: 100%;
+    padding: 10px;
+    background: linear-gradient(45deg, blue, red);
+    box-shadow: 0 3px 5px 2px rgba(33, 203, 243, .3);
+    border-radius: 10px;
+}

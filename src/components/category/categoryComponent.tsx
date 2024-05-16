@@ -7,16 +7,16 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import IconComponentAll from "../../common/iconsAndSVGComponents/allGoods";
+import IconCar from "../../common/iconsAndSVGComponents/car";
+import IconElectronics from "../../common/iconsAndSVGComponents/electronics";
+import IconFashion from "../../common/iconsAndSVGComponents/fashion";
+import IconFoods from "../../common/iconsAndSVGComponents/foods";
+import IconComponentHome from "../../common/iconsAndSVGComponents/home";
+import IconHouse from "../../common/iconsAndSVGComponents/house";
+import JobComponent from "../../common/iconsAndSVGComponents/job";
 import { userActions } from "../../store/slices";
 import { category, selectCars, useAppDispatch } from "../../store/store";
-import IconComponentAll from "../svg/allGoods";
-import IconCar from "../svg/car";
-import IconElectronics from "../svg/electronics";
-import IconFashion from "../svg/fashion";
-import IconFoods from "../svg/foods";
-import IconComponentHome from "../svg/home";
-import IconHouse from "../svg/house";
-import JobComponent from "../svg/job";
 import s from "./categoryComponent.module.css";
 const styles = {
   root: {
