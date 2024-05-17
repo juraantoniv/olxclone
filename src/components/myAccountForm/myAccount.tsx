@@ -47,12 +47,10 @@ export const MyAccount: React.FC<MyType> = ({ close }) => {
   const save = () => {
     setDisabled(true);
   };
-  console.log(errors);
   const onSubmit = async (data: FormTypeForUpdate) => {
     try {
       const user = await userService.updateUserData(data);
       toast.info(`data was saved`);
-      console.log(user);
     } catch (e) {
       console.log(e);
     }
