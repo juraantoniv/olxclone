@@ -41,7 +41,7 @@ export const MyAccount: React.FC<MyType> = ({ close }) => {
     formState: { errors },
   } = useForm<FormTypeForUpdate>({
     resolver: zodResolver(Schema),
-    mode: "onBlur",
+    mode: "onSubmit",
   });
 
   const save = () => {
