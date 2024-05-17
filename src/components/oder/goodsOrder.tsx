@@ -7,7 +7,7 @@ import { AxiosError } from "axios";
 import React from "react";
 import { toast } from "react-toastify";
 
-import { carsApiService } from "../../services/goods.service";
+import { goodsApiService } from "../../services/goods.service";
 
 type CarOrderType = {
   id: string;
@@ -16,7 +16,7 @@ type CarOrderType = {
 export const CarOrder: React.FC<CarOrderType> = ({ id }) => {
   const toOrderCarHandler = async () => {
     try {
-      await carsApiService.orderCar(id);
+      await goodsApiService.orderCar(id);
       toast.info("You ordered a car, a manager will contact you asap");
     } catch (e: unknown) {
       if (e instanceof AxiosError) {

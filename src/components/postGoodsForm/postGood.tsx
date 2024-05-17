@@ -8,8 +8,6 @@ import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
-import Typography from "@mui/material/Typography";
-import { AxiosError } from "axios";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Trans } from "react-i18next";
@@ -42,7 +40,6 @@ export const PostGoodDialog = () => {
   });
   const [open, setOpen] = React.useState(false);
   const dispatch = useAppDispatch();
-
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -189,7 +186,7 @@ export const PostGoodDialog = () => {
               </TextField>
 
               <TextField
-                {...register("price")}
+                {...register("price", { valueAsNumber: true })}
                 name={"price"}
                 helperText="Please enter price "
                 size={"small"}

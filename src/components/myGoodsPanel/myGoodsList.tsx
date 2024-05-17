@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 import { DataGoods, GoodsType, UserInfoType } from "../../common/types/types";
-import { carsApiService } from "../../services/goods.service";
+import { goodsApiService } from "../../services/goods.service";
 import { selectUser, setGoodOwner } from "../../store/store";
 import { DeleteModal } from "../deleteUserModal/deleteUserModal";
 import { EditableGoods } from "../editableDialogGoods/editableGoods";
@@ -46,9 +46,12 @@ export const MyGoodsList = () => {
   const user = useSelector(selectUser);
 
   useEffect(() => {
-    carsApiService.getMyGoods().then((goods) => {
-      setGoods(goods.data.data);
-    });
+    goodsApiService
+      .getMyGoods()
+      .then((goods) => {
+        setGoods(goods.data.data);
+      })
+      .catch((error) => {});
   }, [user]);
 
   const updateGoods = (goods: DataGoods[]) => {

@@ -15,7 +15,7 @@ import {
 } from "../common/types/types";
 import { FormType } from "../components/loginComponent/loginComponentNew";
 import { CreateGoodsType } from "../components/postGoodsForm/postGood";
-import { carsApiService } from "../services/goods.service";
+import { goodsApiService } from "../services/goods.service";
 import { createAppAsyncThunk } from "./create-app-thunk";
 import { AppDispatch, AppRootStateType } from "./store";
 
@@ -94,7 +94,7 @@ const fetchGoods = createAppAsyncThunk<GoodsType, ParamsType | void>(
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     return thunkTryCatch(thunkAPI, async () => {
-      const goods = await carsApiService.getAll(arg);
+      const goods = await goodsApiService.getAll(arg);
 
       return goods.data;
     });
@@ -105,7 +105,7 @@ const postGood = createAppAsyncThunk<DataGoods, CreateGoodsType>(
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     return thunkTryCatch(thunkAPI, async () => {
-      const goods = await carsApiService.postGoods(arg);
+      const goods = await goodsApiService.postGoods(arg);
 
       return goods.data;
     });
@@ -117,7 +117,7 @@ const likeCar = createAppAsyncThunk<void, string>(
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     return thunkTryCatch(thunkAPI, async () => {
-      await carsApiService.likeCar(arg);
+      await goodsApiService.likeCar(arg);
     });
   },
 );

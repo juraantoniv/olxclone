@@ -34,7 +34,11 @@ export const ReactSlick = () => {
               sx={{ borderRadius: "10px" }}
               component="img"
               height="100"
-              image={good.image}
+              image={
+                !good.image?.includes("null")
+                  ? good.image
+                  : "https://www.shutterstock.com/image-vector/no-image-available-vector-illustration-260nw-744886198.jpg"
+              }
             />
             <Typography>{good?.price} UAH</Typography>
             <Typography fontStyle={"oblique"} fontSize={"large"}>

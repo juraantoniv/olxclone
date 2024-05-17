@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 import { DataGoods } from "../../common/types/types";
 import { userService } from "../../services/auth.service";
-import { carsApiService } from "../../services/goods.service";
+import { goodsApiService } from "../../services/goods.service";
 import { EditUserModal } from "../adminComponents/editUserComponent";
 import { UniversalTableComponent } from "../universalTable/table";
 import s from "./users.module.css";
@@ -30,7 +30,7 @@ export const GoodsDataTable = () => {
   const [users, setUsers] = useState<DataGoods[]>([]);
 
   useEffect(() => {
-    carsApiService.getAll().then((data) => {
+    goodsApiService.getAll().then((data) => {
       console.log(data.data);
       setUsers(data.data.data);
     });

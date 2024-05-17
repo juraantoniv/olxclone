@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 
 import { DataGoods, UserInfoType } from "../../common/types/types";
 import { adminService, userService } from "../../services/auth.service";
-import { carsApiService } from "../../services/goods.service";
+import { goodsApiService } from "../../services/goods.service";
 import { useAppDispatch } from "../../store/store";
 import s from "./delteUserModal.module.css";
 
@@ -42,10 +42,10 @@ export const DeleteModal: React.FC<DeleteUserModalType> = ({
     try {
       mode
         ? await adminService.deleteUser(userId)
-        : await carsApiService.deleteGood(id);
+        : await goodsApiService.deleteGood(id);
 
       mode ? toast.info("User was deleted") : toast.info("Goods was deleted");
-      const goods = await carsApiService.getUserGoods(userId!);
+      const goods = await goodsApiService.getUserGoods(userId!);
       if (setGoods) {
         setGoods(goods.data);
       }

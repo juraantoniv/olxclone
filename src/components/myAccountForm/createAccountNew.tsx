@@ -1,6 +1,7 @@
 import "react-international-phone/style.css";
 
 import { zodResolver } from "@hookform/resolvers/zod";
+import CloseIcon from "@mui/icons-material/Close";
 import CloudUploadIcon from "@mui/icons-material/CloudUpload";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Card } from "@mui/material";
@@ -9,8 +10,8 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
 import Link from "@mui/material/Link";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import TextField from "@mui/material/TextField";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
@@ -21,7 +22,6 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { authService } from "../../services/auth.service";
-import { useAppDispatch } from "../../store/store";
 import s from "./createAcctountNew.module.css";
 
 function Copyright(props: any) {
@@ -41,6 +41,10 @@ function Copyright(props: any) {
     </Typography>
   );
 }
+
+type HandleComponentType = {
+  closeMenu?: () => void;
+};
 
 const Schema = z
   .object({
@@ -67,7 +71,7 @@ const Schema = z
 
 export type FormTypeCreateUserNew = z.infer<typeof Schema>;
 
-export const SignUp = () => {
+export const SignUp: React.FC<HandleComponentType> = ({ closeMenu }) => {
   const {
     handleSubmit,
     register,
@@ -97,9 +101,18 @@ export const SignUp = () => {
     }
   };
 
+  const close = () => {
+    if (closeMenu) {
+      closeMenu();
+    }
+  };
+
   return (
     <Box className={s.mainBox}>
       <Card className={s.container} variant={"outlined"}>
+        <IconButton sx={{ cursor: "pointer", marginLeft: "90%" }}>
+          <CloseIcon onClick={close} />
+        </IconButton>
         <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}>
           <LockOutlinedIcon />
         </Avatar>
@@ -112,7 +125,7 @@ export const SignUp = () => {
           onSubmit={handleSubmit(onSubmit)}
           sx={{ mt: 3 }}
         >
-          <Grid container spacing={2}>
+          <Grid container spacing={3}>
             <Grid item xs={12} sm={6}>
               <Button
                 startIcon={<CloudUploadIcon />}
@@ -125,7 +138,7 @@ export const SignUp = () => {
               </Button>
             </Grid>
 
-            <Grid item xs={6} sm={6}>
+            <Grid item xs={12} sm={6}>
               <TextField
                 {...register("name")}
                 autoComplete="given-name"
@@ -137,18 +150,7 @@ export const SignUp = () => {
                 autoFocus
               />
             </Grid>
-
-            <Grid item xs={6} sm={6}>
-              <TextField
-                {...register("age", { valueAsNumber: true })}
-                name={"age"}
-                size={"small"}
-                helperText="Please enter age"
-                id="demo-helper-text-aligned"
-                label="age"
-              />
-            </Grid>
-            <Grid item xs={6} sm={6}>
+            <Grid item xs={12} sx={{ zIndex: "999999" }}>
               <Controller
                 name="phone"
                 control={control}
@@ -163,6 +165,18 @@ export const SignUp = () => {
                 )}
               />
             </Grid>
+            <Grid item xs={6}>
+              <TextField
+                {...register("age", { valueAsNumber: true })}
+                name={"age"}
+                size={"small"}
+                sx={{ width: "230px" }}
+                helperText="Please enter age"
+                id="demo-helper-text-aligned"
+                label="age"
+              />
+            </Grid>
+
             <Grid item xs={12}>
               <TextField
                 {...register("email")}

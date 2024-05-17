@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 
 import IconComponentPhone from "../../common/iconsAndSVGComponents/phone";
 import { DataGoods, UserInfoType } from "../../common/types/types";
-import { carsApiService } from "../../services/goods.service";
+import { goodsApiService } from "../../services/goods.service";
 import { goodIdSelected, langValue, setGoodOwner } from "../../store/store";
 import { AddFavorite } from "../addFavorite/addFavorite";
 import { ProfileAvatar } from "../avatar/profileAvatar";
@@ -27,7 +27,7 @@ export const CurrentGoodInfo = () => {
   const [goods, setGoods] = useState<DataGoods>({} as DataGoods);
 
   useEffect(() => {
-    carsApiService.getById(id).then((r) => {
+    goodsApiService.getById(id).then((r) => {
       setGoods(r.data);
     });
   }, [id, user]);

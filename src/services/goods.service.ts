@@ -3,7 +3,7 @@ import { DataType } from "../components/adminPanel/dashboard";
 import { FormTypeForUpdateModal } from "../components/editableDialogGoods/editGoodsForModal";
 import { instance } from "./interceptors/interceptors";
 
-export const carsApiService = {
+export const goodsApiService = {
   getAll: (params?: ParamsType | void) =>
     instance.get<GoodsType>(`/goods`, {
       params: {

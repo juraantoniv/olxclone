@@ -8,7 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import { DataGoods } from "../../common/types/types";
 import { userService } from "../../services/auth.service";
-import { carsApiService } from "../../services/goods.service";
+import { goodsApiService } from "../../services/goods.service";
 import { userActions } from "../../store/slices";
 import { setGoodOwner, useAppDispatch } from "../../store/store";
 import { AddFavorite } from "../addFavorite/addFavorite";
@@ -26,7 +26,7 @@ export const UserGoods = () => {
 
   useEffect(() => {
     if (id) {
-      carsApiService.getUserGoods(id).then((r) => {
+      goodsApiService.getUserGoods(id).then((r) => {
         setGoods(r.data);
       });
     }

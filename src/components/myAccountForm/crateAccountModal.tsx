@@ -20,6 +20,7 @@ export const CrateAccountModal: React.FC<CrateAccountModalType> = ({
 
   const handleClose = () => {
     setOpen(false);
+    callBack();
   };
   return (
     <div>
@@ -30,7 +31,7 @@ export const CrateAccountModal: React.FC<CrateAccountModalType> = ({
         Add another account
       </MenuItem>
       <Modal open={open} onClose={handleClose}>
-        <SignUp />
+        <SignUp closeMenu={handleClose} />
       </Modal>
     </div>
   );

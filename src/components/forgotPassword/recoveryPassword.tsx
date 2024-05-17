@@ -25,6 +25,7 @@ const RecoveryPassword = () => {
   } = useForm<FormTypeEmail>({
     resolver: zodResolver(Schema),
   });
+  console.log(errors);
 
   const onSubmit = async (data: FormTypeEmail) => {
     try {
@@ -55,7 +56,9 @@ const RecoveryPassword = () => {
           />
           {errors.email?.message && <span>{errors?.email?.message}</span>}
         </fieldset>
-        <Button variant={"contained"}>Recovery</Button>
+        <Button type={"submit"} variant={"contained"}>
+          Recovery
+        </Button>
       </form>
     </Card>
   );

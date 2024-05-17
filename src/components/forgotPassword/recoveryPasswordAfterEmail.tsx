@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import SaveIcon from "@mui/icons-material/Save";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, Card, TextField } from "@mui/material";
 import React from "react";
 import { useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -45,7 +45,7 @@ export const RecoveryPasswordAfterEmail = () => {
   };
 
   return (
-    <Box
+    <Card
       component="form"
       onSubmit={handleSubmit(onSubmit)}
       className={s.container}
@@ -57,6 +57,7 @@ export const RecoveryPasswordAfterEmail = () => {
         padding: "10px",
         backgroundColor: "white",
       }}
+      variant={"outlined"}
     >
       <TextField
         {...register("new_password")}
@@ -65,9 +66,9 @@ export const RecoveryPasswordAfterEmail = () => {
         size={"small"}
         label={"Confirm password"}
       />
-      <Button type={"submit"} startIcon={<SaveIcon />}>
+      <Button variant={"contained"} type={"submit"} startIcon={<SaveIcon />}>
         Change password
       </Button>
-    </Box>
+    </Card>
   );
 };

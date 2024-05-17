@@ -12,7 +12,7 @@ import { toast } from "react-toastify";
 import { z } from "zod";
 
 import { DataGoods } from "../../common/types/types";
-import { carsApiService } from "../../services/goods.service";
+import { goodsApiService } from "../../services/goods.service";
 import s from "./editGoodsForModal.module.css";
 const Schema = z.object({
   title: z.string().min(1).optional(),
@@ -59,9 +59,9 @@ export const EditableGoodsModal: React.FC<EditableGoodsType> = ({
 
   const onSubmit = async (data: FormTypeForUpdateModal) => {
     try {
-      await carsApiService.editGoods(item.id, data);
+      await goodsApiService.editGoods(item.id, data);
 
-      const goods = await carsApiService.getMyGoods();
+      const goods = await goodsApiService.getMyGoods();
       setGoods(goods.data.data);
       toast.info(`data was saved`);
     } catch (e) {

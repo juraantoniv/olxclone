@@ -3,7 +3,7 @@ import Typography from "@mui/material/Typography";
 import React, { useEffect, useState } from "react";
 
 import { DataGoods, GoodsType } from "../../common/types/types";
-import { carsApiService } from "../../services/goods.service";
+import { goodsApiService } from "../../services/goods.service";
 import { CardItem } from "../goodsCard/cardItem";
 import s from "./favoritsGoods.module.css";
 
@@ -11,7 +11,7 @@ export const Favorites = () => {
   const [goods, setGoods] = useState<DataGoods[]>();
 
   useEffect(() => {
-    carsApiService.getFavorite().then((data) => {
+    goodsApiService.getFavorite().then((data) => {
       setGoods(data.data.data);
     });
   }, []);

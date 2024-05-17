@@ -6,7 +6,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 
-import { carsApiService } from "../../services/goods.service";
+import { goodsApiService } from "../../services/goods.service";
 import { goodIdSelected, selectUser } from "../../store/store";
 
 export const AddFavorite = () => {
@@ -15,7 +15,7 @@ export const AddFavorite = () => {
 
   const addFavoriteHandler = async () => {
     try {
-      const response = await carsApiService.addFavorite(id);
+      const response = await goodsApiService.addFavorite(id);
       toast.info(`${response.data}`);
     } catch (e: any) {
       console.log(e);

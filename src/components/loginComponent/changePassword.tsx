@@ -11,6 +11,9 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { z } from "zod";
 
+import { authService } from "../../services/auth.service";
+import { userActions } from "../../store/slices";
+import { useAppDispatch } from "../../store/store";
 import s from "./changePassword.module.css";
 
 type ChangePasswordType = {
@@ -37,14 +40,25 @@ export const ChangePassword: React.FC<ChangePasswordType> = ({
   const {
     handleSubmit,
     register,
-    // control,
     formState: { errors },
   } = useForm<FormTypeForChangePassword>({
     resolver: zodResolver(Schema),
   });
-
+  const dispatch = useAppDispatch();
   const onSubmit = async (data: FormTypeForChangePassword) => {
-    console.log(data);
+    try {
+      await authService.changePassword(data);
+      toast.info("Password was changed, please login with new password", {
+        type: "success",
+        theme: "colored",
+      });
+      closeModal();
+    } catch (e) {
+      toast.error("Something went wrong", {
+        type: "error",
+        theme: "colored",
+      });
+    }
   };
 
   return (
@@ -54,14 +68,13 @@ export const ChangePassword: React.FC<ChangePasswordType> = ({
       className={s.container}
       variant={"outlined"}
     >
-      <CssBaseline />
       <Typography component={"p"}>
         Change your password here. After saving, you'll be logged out.
       </Typography>
       <TextField
         {...register("old_password")}
         name="old_password"
-        type="text"
+        type="password"
         size={"small"}
         label="Current password"
         helperText={errors.old_password?.message}

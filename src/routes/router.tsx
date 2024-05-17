@@ -10,6 +10,8 @@ import { Dashboard } from "../components/adminPanel/dashboard";
 import { Goods } from "../components/adminPanel/goods";
 import { CategoryComponent } from "../components/category/categoryComponent";
 import { CurrentGoodInfo } from "../components/currentGoodInfo/currentGoodInfo";
+import RecoveryPassword from "../components/forgotPassword/recoveryPassword";
+import { RecoveryPasswordAfterEmail } from "../components/forgotPassword/recoveryPasswordAfterEmail";
 import { GoodsList } from "../components/goodsList/goodsList";
 import { GoodsDataTable } from "../components/goodsTable/goods";
 import { CurrentDialog } from "../components/messegePanel/dialog/dialog";
@@ -36,6 +38,14 @@ const privateRoutes: RouteObject[] = [
   {
     path: "category/info",
     element: <CurrentGoodInfo />,
+  },
+  {
+    path: "forgotWithToken/:token",
+    element: <RecoveryPasswordAfterEmail />,
+  },
+  {
+    path: "forgot_password",
+    element: <RecoveryPassword />,
   },
   {
     path: "admin",
