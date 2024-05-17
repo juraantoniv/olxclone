@@ -7,6 +7,7 @@ import {
   ITokensPair,
   UserInfoType,
 } from "../common/types/types";
+import { FormTypeForUpdateUser } from "../components/adminComponents/myAccountByAdmin";
 import { FormTypeForChangePassword } from "../components/loginComponent/changePassword";
 import { FormType } from "../components/loginComponent/loginComponentNew";
 import { FormTypeCreateUserNew } from "../components/myAccountForm/createAccountNew";
@@ -76,8 +77,12 @@ export const userService = {
       message,
       subject,
     }),
-  updateUserData: (user: any) =>
+  updateUserData: (user: FormTypeForUpdateUser) =>
     instance.patch("users", {
+      ...user,
+    }),
+  updateUserDataById: (user: FormTypeForUpdateUser, id: string) =>
+    instance.patch(`users/update/${id}`, {
       ...user,
     }),
 };

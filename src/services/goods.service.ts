@@ -14,6 +14,8 @@ export const goodsApiService = {
         ORDER: params?.ORDER,
         category: params?.category,
         region: params?.region,
+        minValue: params?.minValue,
+        maxValue: params?.maxValue,
       },
     }),
   getById: (id: string) => instance.get<DataGoods>(`/goods/${id}`),
@@ -23,6 +25,7 @@ export const goodsApiService = {
     }),
   getUserGoods: (id: string) => instance.get<DataGoods[]>(`/goods/user/${id}`),
   getMyGoods: () => instance.get<GoodsType>(`/goods/user/my`),
+  buyPremAccount: () => instance.post<void>(`/goods/user/buyPrem`),
   likeCar: (id: string) => instance.post<void>(`goods/like/${id}`),
   postGoods: (data: any) =>
     instance.post<GoodsType>(
@@ -42,7 +45,7 @@ export const goodsApiService = {
         },
       },
     ),
-  orderCar: (id: string) => instance.post<void>(`cars/buy/${id}`),
+  orderCar: (id: string) => instance.post<void>(`goods/buy/${id}`),
   getFavorite: () => instance.get<GoodsType>(`goods/favorite/my`),
   addFavorite: (id: string) => instance.post<void>(`goods/favorite/${id}`),
   getStatics: () => instance.get<DataType[]>(`goods/statics/all`),

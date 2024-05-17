@@ -13,10 +13,19 @@ import {
 import Checkbox from "@mui/material/Checkbox";
 import Typography from "@mui/material/Typography";
 import * as React from "react";
+import { toast } from "react-toastify";
 
+import { goodsApiService } from "../../services/goods.service";
 import s from "./buyPremAccount.module.css";
 
 export const CreditCardForm = () => {
+  const buyPremAccount = async () => {
+    try {
+      await goodsApiService.buyPremAccount();
+      toast.info("You bought prem account");
+    } catch (e) {}
+  };
+
   return (
     <Card variant="outlined" className={s.card}>
       <Typography>Buy PremAccount for one mounth</Typography>
@@ -44,7 +53,7 @@ export const CreditCardForm = () => {
           <Input placeholder="Enter cardholder's full name" />
         </FormControl>
         <CardActions sx={{ gridColumn: "1/-1" }}>
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={buyPremAccount}>
             Buy
           </Button>
         </CardActions>

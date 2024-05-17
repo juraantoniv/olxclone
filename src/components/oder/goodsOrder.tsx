@@ -13,8 +13,8 @@ type CarOrderType = {
   id: string;
 };
 
-export const CarOrder: React.FC<CarOrderType> = ({ id }) => {
-  const toOrderCarHandler = async () => {
+export const GoodOrder: React.FC<CarOrderType> = ({ id }) => {
+  const toOrderGoodHandler = async () => {
     try {
       await goodsApiService.orderCar(id);
       toast.info("You ordered a car, a manager will contact you asap");
@@ -38,7 +38,10 @@ export const CarOrder: React.FC<CarOrderType> = ({ id }) => {
       </AlertDialog.Trigger>
       <AlertDialog.Portal>
         <AlertDialog.Overlay className="AlertDialogOverlay" />
-        <AlertDialog.Content className="AlertDialogContent">
+        <AlertDialog.Content
+          className="AlertDialogContent"
+          style={{ zIndex: "9999" }}
+        >
           <AlertDialog.Title className="AlertDialogTitle">
             Are you absolutely sure?
           </AlertDialog.Title>
@@ -58,7 +61,7 @@ export const CarOrder: React.FC<CarOrderType> = ({ id }) => {
             <AlertDialog.Action asChild>
               <Button
                 startIcon={<AddShoppingCartIcon />}
-                onClick={toOrderCarHandler}
+                onClick={toOrderGoodHandler}
                 variant={"contained"}
               >
                 Order

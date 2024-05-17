@@ -20,6 +20,7 @@ import {
   selectUser,
   setGoodOwner,
   setOffset,
+  setRange,
   sortDirection,
   useAppDispatch,
 } from "../../store/store";
@@ -28,6 +29,7 @@ import s from "./mainLayout.module.css";
 
 export const MainLayout = () => {
   const loading = useSelector(loadingStatus);
+  const range = useSelector(setRange);
   const categoryValue = useSelector(category);
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -39,7 +41,6 @@ export const MainLayout = () => {
   const lang = useSelector(langValue);
   const skip = useSelector(setOffset);
   const user = useSelector(selectUser);
-  console.log(sortValue);
 
   useEffect(() => {
     dispatch(
@@ -48,6 +49,8 @@ export const MainLayout = () => {
         ORDER: sortValue ? "ASC" : "DESC",
         category: categoryValue,
         region: region,
+        minValue: range[0],
+        maxValue: range[1],
       }),
     )
       .unwrap()
@@ -58,10 +61,12 @@ export const MainLayout = () => {
           ORDER: sortValue ? "ASC" : "DESC",
           category: categoryValue,
           region: region,
+          minValue: range[0],
+          maxValue: range[1],
         });
         dispatch(userActions.setCount(5));
       });
-  }, [categoryValue, region, sortValue]);
+  }, [categoryValue, region, sortValue, range]);
 
   return (
     <Box className={s.mainBox}>

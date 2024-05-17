@@ -51,3 +51,4 @@ export const themeValue = (state: AppRootStateType) => state.darkMode;
 export const sortDirection = (state: AppRootStateType) => state.sort;
 export const langValue = (state: AppRootStateType) => state.lang;
 export const setGoodOwner = (state: AppRootStateType) => state.owner;
+export const setRange = (state: AppRootStateType) => state.range;

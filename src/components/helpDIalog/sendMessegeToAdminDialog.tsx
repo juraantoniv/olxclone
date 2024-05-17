@@ -4,6 +4,7 @@ import { Card } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import * as React from "react";
+import { Trans } from "react-i18next";
 import { useSelector } from "react-redux";
 
 import { selectUser } from "../../store/store";
@@ -33,7 +34,7 @@ export const FormDialogHelp: React.FC<SendMessageDialogType> = ({ id }) => {
         onClick={handleClickOpen}
         disabled={!user.name || user.id === id}
       >
-        Help
+        <Trans>Help</Trans>
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <TypingComponent close={handleClose} />

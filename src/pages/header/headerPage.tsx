@@ -1,8 +1,8 @@
 import HomeIcon from "@mui/icons-material/Home";
-import { Badge, Button, Switch } from "@mui/material";
+import { Button, Switch } from "@mui/material";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
-import { alpha, styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import Toolbar from "@mui/material/Toolbar";
 import * as React from "react";
 import { Trans } from "react-i18next";

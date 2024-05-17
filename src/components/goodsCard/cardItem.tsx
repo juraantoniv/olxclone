@@ -25,7 +25,7 @@ import { DataGoods, UserInfoType } from "../../common/types/types";
 import { userService } from "../../services/auth.service";
 import { userActions, userThunks } from "../../store/slices";
 import { selectCount, setOffset, useAppDispatch } from "../../store/store";
-import { CarOrder } from "../oder/goodsOrder";
+import { GoodOrder } from "../oder/goodsOrder";
 import s from "./cardItem.module.css";
 
 type cardContent = {
@@ -41,7 +41,7 @@ export const CardItem: React.FC<cardContent> = ({ items, currencyType }) => {
   const navigate = useNavigate();
 
   const likeCar = (id: string) => {
-    dispatch(userThunks.likeCar(id))
+    dispatch(userThunks.likeGood(id))
       .unwrap()
       .then(() => {
         dispatch(
@@ -149,7 +149,7 @@ export const CardItem: React.FC<cardContent> = ({ items, currencyType }) => {
               </Stack>
 
               <Stack direction={"row"}>
-                <CarOrder id={el.id} />
+                <GoodOrder id={el.id} />
                 <Button
                   variant={"contained"}
                   startIcon={<InfoIcon />}

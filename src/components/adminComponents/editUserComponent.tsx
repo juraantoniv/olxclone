@@ -13,11 +13,13 @@ import { EditAccountByAdmin } from "./myAccountByAdmin";
 type EditUserComponentType = {
   text: boolean;
   id: string;
+  setUsers: (users: any) => void;
 };
 
 export const EditUserModal: React.FC<EditUserComponentType> = ({
   text,
   id,
+  setUsers,
 }) => {
   const [open, setOpen] = React.useState(false);
   const [user, setUser] = React.useState<UserInfoType>();
@@ -40,7 +42,11 @@ export const EditUserModal: React.FC<EditUserComponentType> = ({
         </Tooltip>
       </Typography>
       <Modal open={open} onClose={handleClose}>
-        <EditAccountByAdmin close={handleClose} user={user!} />
+        <EditAccountByAdmin
+          close={handleClose}
+          user={user!}
+          setUsers={setUsers}
+        />
       </Modal>
     </div>
   );

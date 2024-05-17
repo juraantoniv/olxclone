@@ -33,16 +33,6 @@ export const MessagePanel = () => {
             <Button onClick={() => currentDialogHandler(current.receiverId)}>
               <ProfileAvatar id={user.id} />
             </Button>
-            {/*<ChatItem*/}
-            {/*  avatar="https://avatars.githubusercontent.com/u/80540635?v=4"*/}
-            {/*  alt="kursat_avatar"*/}
-            {/*  title="Kursat"*/}
-            {/*  subtitle="Ok. See you !"*/}
-            {/*  date={new Date()}*/}
-            {/*  unread={0}*/}
-            {/*  id={user.id}*/}
-            {/*  onClick={() => currentDialogHandler(current.receiverId)}*/}
-            {/*/>*/}
           </Box>
         ))}
       </Box>

@@ -3,6 +3,7 @@ import { Modal } from "@mui/material";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import React from "react";
+import { Trans } from "react-i18next";
 import { useSelector } from "react-redux";
 
 import { selectUser } from "../../store/store";
@@ -27,7 +28,7 @@ export const BuyPremiumModal = () => {
         variant="contained"
         disabled={!user.name}
       >
-        Buy
+        <Trans>Buy</Trans>
       </Button>
       <Modal open={open} onClose={handleClose}>
         <Box>

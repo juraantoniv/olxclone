@@ -1,45 +1,70 @@
-import Box from "@mui/material/Box";
-import Slider from "@mui/material/Slider";
-import * as React from "react";
+import { Box } from "@material-ui/core";
+import { Card, Slider, Stack, TextField, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 
-function valuetext(value: number) {
-  return `${value}  "$`;
-}
-
-const marks = [
-  {
-    value: 1000,
-    label: "1000$",
-  },
-  {
-    value: 10000,
-    label: "1000$",
-  },
-  {
-    value: 100000,
-    label: "99999$",
-  },
-];
+import { userActions } from "../../store/slices";
+import { setRange, useAppDispatch } from "../../store/store";
 
 export const RangeSlider = () => {
-  const [value, setValue] = React.useState<number[]>([0, 10000]);
+  const dispatch = useAppDispatch();
+  const range = useSelector(setRange);
 
-  const handleChange = (event: Event, newValue: number | number[]) => {
-    setValue(newValue as number[]);
+  const [minNum, setMinNum] = useState(0);
+  const [maxNum, setMaxNum] = useState(100000);
+  const minmin = 0;
+  const maxmax = 100000;
+  const [priceRangeValue, setPriceRangeValue] = useState([0, 100000]);
+
+  const handlePriceRangeChange = (event: any, newValue: any) => {
+    dispatch(userActions.setRange([newValue[0], newValue[1]]));
+    setMinNum(newValue[0]);
+    setMaxNum(newValue[1]);
+    setPriceRangeValue(newValue);
   };
 
   return (
-    <Box>
+    <Card variant={"outlined"} sx={{ margin: "5px", padding: "5px" }}>
+      <Typography>Price</Typography>
       <Slider
-        value={value}
-        onChange={handleChange}
-        valueLabelDisplay="on"
-        getAriaValueText={valuetext}
-        step={5000}
-        min={1000}
-        max={99999}
-        marks={marks}
+        getAriaLabel={() => "Price range"}
+        value={priceRangeValue}
+        onChange={handlePriceRangeChange}
+        valueLabelDisplay="auto"
+        min={minmin}
+        max={maxmax}
       />
-    </Box>
+      <Stack direction="row" justifyContent="space-evenly" alignItems="center">
+        <TextField
+          label="min"
+          type="number"
+          variant="outlined"
+          InputLabelProps={{ shrink: true }}
+          size={"small"}
+          sx={{ width: "100px" }}
+          value={minNum}
+          onChange={(e) => {
+            setMinNum(Number(e.target.value));
+            dispatch(userActions.setRange([e.target.value, range[1]]));
+            setPriceRangeValue([Number(e.target.value), priceRangeValue[1]]);
+          }}
+        />
+        <Typography>-</Typography>
+        <TextField
+          label="max"
+          type="number"
+          size={"small"}
+          variant="outlined"
+          InputLabelProps={{ shrink: true }}
+          sx={{ width: "100px" }}
+          value={maxNum}
+          onChange={(e) => {
+            setMaxNum(Number(e.target.value));
+            dispatch(userActions.setRange([range[0], e.target.value]));
+            setPriceRangeValue([priceRangeValue[0], Number(e.target.value)]);
+          }}
+        />
+      </Stack>
+    </Card>
   );
 };

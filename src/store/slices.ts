@@ -33,6 +33,7 @@ const initialState = {
   lang: "eng",
   category: null,
   region: null,
+  range: [] as Array<string>,
 };
 
 const slice = createSlice({
@@ -72,6 +73,9 @@ const slice = createSlice({
     setRegion: (state, action) => {
       state.region = action.payload;
     },
+    setRange: (state, action) => {
+      state.range = action.payload;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(fetchGoods.fulfilled, (state, action) => {
@@ -90,7 +94,7 @@ const slice = createSlice({
 });
 
 const fetchGoods = createAppAsyncThunk<GoodsType, ParamsType | void>(
-  "cars/fetchCars",
+  "goods/fetchGoods",
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     return thunkTryCatch(thunkAPI, async () => {
@@ -101,7 +105,7 @@ const fetchGoods = createAppAsyncThunk<GoodsType, ParamsType | void>(
   },
 );
 const postGood = createAppAsyncThunk<DataGoods, CreateGoodsType>(
-  "cars/postCar",
+  "goods/postGood",
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     return thunkTryCatch(thunkAPI, async () => {
@@ -112,8 +116,8 @@ const postGood = createAppAsyncThunk<DataGoods, CreateGoodsType>(
   },
 );
 
-const likeCar = createAppAsyncThunk<void, string>(
-  "cars/likeCar",
+const likeGood = createAppAsyncThunk<void, string>(
+  "goods/likeGood",
   async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     return thunkTryCatch(thunkAPI, async () => {
@@ -126,7 +130,7 @@ export const userReducer = slice.reducer;
 export const userActions = slice.actions;
 export const userThunks = {
   fetchGoods,
-  likeCar,
+  likeGood,
   postGood,
 };
 

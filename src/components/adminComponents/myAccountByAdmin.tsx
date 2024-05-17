@@ -30,16 +30,21 @@ const Schema = z.object({
   email: z.string().min(1).optional(),
   age: z.number().min(16).max(99).optional(),
   city: z.string().min(1).optional(),
-  status: z.enum(["active", "banned"]).optional(),
+  active: z.enum(["active", "banned"]).optional(),
 });
 
-export type FormTypeForUpdate = z.infer<typeof Schema>;
+export type FormTypeForUpdateUser = z.infer<typeof Schema>;
 
 type MyType = {
   close: () => void;
   user: UserInfoType;
+  setUsers: (users: any) => void;
 };
-export const EditAccountByAdmin: React.FC<MyType> = ({ close, user }) => {
+export const EditAccountByAdmin: React.FC<MyType> = ({
+  close,
+  user,
+  setUsers,
+}) => {
   const [disabled, setDisabled] = useState<boolean>(true);
 
   const editMode = () => {
@@ -51,13 +56,13 @@ export const EditAccountByAdmin: React.FC<MyType> = ({ close, user }) => {
     register,
     // control,
     formState: { errors, isValid, isSubmitted },
-  } = useForm<FormTypeForUpdate>({
+  } = useForm<FormTypeForUpdateUser>({
     resolver: zodResolver(Schema),
     defaultValues: {
       email: user.email,
       age: user.age,
       city: user.city,
-      status: user.active,
+      active: user.active,
       name: user.name,
     },
   });
@@ -66,10 +71,11 @@ export const EditAccountByAdmin: React.FC<MyType> = ({ close, user }) => {
     setDisabled(true);
   };
 
-  const onSubmit = async (data: FormTypeForUpdate) => {
-    console.log(data);
+  const onSubmit = async (data: FormTypeForUpdateUser) => {
     try {
-      const user = await userService.updateUserData(data);
+      await userService.updateUserDataById(data, user.id);
+      const users = await userService.getAllUsers();
+      setUsers(users.data);
       toast.info(`data was saved`);
     } catch (e) {
       console.log(e);
@@ -114,10 +120,10 @@ export const EditAccountByAdmin: React.FC<MyType> = ({ close, user }) => {
 
           <Grid item xs={4}>
             <Select
-              {...register("status")}
+              {...register("active")}
               size={"small"}
               fullWidth
-              name={"status"}
+              name={"active"}
               label="status"
               defaultValue={user.active}
               disabled={disabled}

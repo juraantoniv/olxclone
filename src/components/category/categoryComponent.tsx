@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import React from "react";
+import { Trans } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -16,7 +17,12 @@ import IconComponentHome from "../../common/iconsAndSVGComponents/home";
 import IconHouse from "../../common/iconsAndSVGComponents/house";
 import JobComponent from "../../common/iconsAndSVGComponents/job";
 import { userActions } from "../../store/slices";
-import { category, selectCars, useAppDispatch } from "../../store/store";
+import {
+  category,
+  langValue,
+  selectCars,
+  useAppDispatch,
+} from "../../store/store";
 import s from "./categoryComponent.module.css";
 const styles = {
   root: {
@@ -28,9 +34,9 @@ const styles = {
 };
 
 export const CategoryComponent = () => {
-  const categoryValue = useSelector(category);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const lang = useSelector(langValue);
 
   const categoryHandler = (cat: string | null) => {
     dispatch(userActions.setCategory(cat));
@@ -42,7 +48,7 @@ export const CategoryComponent = () => {
       <Grid container spacing={3}>
         <Grid item xs={12}>
           <Typography variant={"h4"} fontWeight={"bold"}>
-            Category
+            <Trans>Category</Trans>
           </Typography>
         </Grid>
         <Grid item xs={12} sm={4} md={3} lg={3}>

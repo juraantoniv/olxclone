@@ -52,6 +52,8 @@ export type ParamsType = {
   ORDER?: string;
   region?: string | null;
   category?: string | null;
+  minValue?: string;
+  maxValue?: string;
 };
 
 export type ITokensPair = {

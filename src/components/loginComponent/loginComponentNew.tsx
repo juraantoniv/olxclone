@@ -83,6 +83,7 @@ export const SignIn: React.FC<SignType> = ({ callback, closeModal }) => {
         }
       })
       .catch((e) => {
+        console.log(e);
         toast.error(`${e.response?.data.messages}`, {
           position: "top-right",
           theme: "colored",
@@ -109,8 +110,8 @@ export const SignIn: React.FC<SignType> = ({ callback, closeModal }) => {
       if (closeModal !== undefined) {
         closeModal();
       }
-    } catch (e) {
-      toast.error(`${e}`, {
+    } catch (e: any) {
+      toast.error(`${e.response?.data.messages}`, {
         position: "top-right",
         theme: "colored",
         type: "error",

@@ -52,9 +52,11 @@ export const CurrentDialog = () => {
   }, []);
 
   const setDataMessages = () => {
-    userService.getMessages().then((data) => {
-      setData(data.data);
-    });
+    try {
+      userService.getMessages().then((data) => {
+        setData(data.data);
+      });
+    } catch (e) {}
   };
 
   const items = data?.find((m) => m.receiverId === id);
